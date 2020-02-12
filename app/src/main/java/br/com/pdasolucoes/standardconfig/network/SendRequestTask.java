@@ -1,0 +1,127 @@
+package br.com.pdasolucoes.standardconfig.network;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONObject;
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+
+import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
+import br.com.pdasolucoes.standardconfig.network.enums.MessageConfiguration;
+import br.com.pdasolucoes.standardconfig.network.enums.TypeService;
+import br.com.pdasolucoes.standardconfig.network.interfaces.IRequest;
+import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
+
+public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
+
+    private IRequest request;
+
+    public SendRequestTask(IRequest request) {
+        super(request);
+        this.request = request;
+    }
+
+    protected Object doInBackground(Void... params) {
+
+        if (!NetworkManager.isNetworkOnline())
+            return MessageConfiguration.NetworkError.getJSONResult();
+
+        TypeService typeService = this.request.getTypeService();
+
+        if (TypeService.SOAP == typeService)
+            return requestSOAP();
+        else
+            return requestREST();
+
+    }
+
+
+    private Object requestSOAP() {
+        SoapObject response;
+
+        try {
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.implicitTypes = true;
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(this.request.getRequestSoapObject());
+
+            String baseUrl = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, "");
+
+            HttpTransportSE transportSE = new HttpTransportSE(baseUrl + this.request.getService());
+            transportSE.call(this.request.getNameSpace() + this.request.getAction(), envelope);
+
+            response = (SoapObject) envelope.getResponse();
+
+
+        } catch (IOException e) {
+            return e;
+        } catch (XmlPullParserException e) {
+            return e;
+        }
+
+        return response;
+    }
+
+
+    private Object requestREST() {
+        try {
+            int timeout = 1000;
+            HttpParams httpParams = new BasicHttpParams();
+            HttpConnectionParams.setSoTimeout(httpParams, timeout);
+
+            String service = this.request.getService();
+            String action = this.request.getAction();
+
+            String baseUrl = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, "");
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost postRequest = new HttpPost(baseUrl + service + "/" + action);
+//            if (ApplicationManager.IsSignedIn()) {
+//                postRequest.addHeader("Token", ApplicationManager.getToken());
+//            }
+
+            HttpEntity entity = this.request.getRequestEntity();
+            postRequest.setEntity(entity);
+
+            HttpResponse httpResp = httpClient.execute(postRequest);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResp.getEntity().getContent(), "UTF-8"));
+            String response = reader.readLine();
+            reader.close();
+
+            JSONObject jsonResponse;
+
+            try {
+                jsonResponse = new JSONObject(response);
+            } catch (Exception e) {
+                return MessageConfiguration.getJSONResultMessage(e.getMessage());
+            }
+
+            return jsonResponse;
+        } catch (SocketTimeoutException e) {
+            //return ResultCode.RequestTimeout.getJSONResult();
+            return null;
+        } catch (MalformedURLException e) {
+            //return ResultCode.InvalidServerURL.getJSONResult();
+            return null;
+        } catch (IOException e) {
+            return MessageConfiguration.NetworkError.getJSONResult();
+        }
+    }
+}

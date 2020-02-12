@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">StandardConfig</string>
+    <string name="dialog_progress_title">Aguarde...</string>
+    <string name="title_error">Erro</string>
+    <string name="message_error_network">Erro de rede</string>
+    <string name="alert_genericerror_title">Erro</string>
+    <string name="alert_permissionerror_message">Erro interno.</string>
+    <string name="navigation_exit_title">Encerrar</string>
+    <string name="navigation_exit_message">Deseja realmente sair da aplicação ?</string>
+    <string name="no">Não</string>
+    <string name="yes">Sim</string>
+    <string name="configuration_configuration">Configurações</string>
+    <string name="configuration_back">Voltar</string>
+    <string name="configuration_confirm">Confirmar</string>
+    <string name="configuration_server">Servidor</string>
+    <string name="configuration_directory">Diretório</string>
+    <string name="configuration_store">Filial</string>
+</resources>
