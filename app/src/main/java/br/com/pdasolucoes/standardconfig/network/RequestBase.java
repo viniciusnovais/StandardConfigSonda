@@ -5,12 +5,15 @@ import android.app.ProgressDialog;
 
 import org.apache.http.HttpEntity;
 import org.json.JSONObject;
+import org.ksoap2.serialization.SoapObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.util.Date;
 
 import br.com.pdasolucoes.standardconfig.R;
+import br.com.pdasolucoes.standardconfig.enums.MarshalType;
+import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 import br.com.pdasolucoes.standardconfig.network.enums.MessageConfiguration;
 import br.com.pdasolucoes.standardconfig.network.enums.RequestInfo;
 import br.com.pdasolucoes.standardconfig.network.enums.RequestType;
@@ -151,11 +154,11 @@ public abstract class RequestBase implements IRequest {
 //            return true;
 //        }
 
-//        if ((messageConfiguration == ResultCode.NotConnected || messageConfiguration == MessageConfiguration.NetworkError) &&
-//                this.getRequestType() == RequestType.OffLine) {
-//            NetworkManager.saveOffLineRequest((JsonRequestBase) this);
-//            return false;
-//        }
+        if (messageConfiguration == MessageConfiguration.NetworkError &&
+                this.getRequestType() == RequestType.OffLine) {
+            NetworkManager.saveOffLineRequest((SoapRequestBase) this);
+            return false;
+        }
 
 //        if (messageConfiguration != ResultCode.Success) {
 //            if (this.getRequestType() == RequestType.OnLine) {
@@ -205,6 +208,7 @@ public abstract class RequestBase implements IRequest {
         return this.requestTimestamp;
     }
 
+
     @Override
     public String getService() {
         return this.getRequestInfo().getService();
@@ -238,6 +242,31 @@ public abstract class RequestBase implements IRequest {
     @Override
     public TypeService getTypeService() {
         return this.getRequestInfo().getTypeService();
+    }
+
+    @Override
+    public String getEntity() {
+        return this.getRequestInfo().getEntity();
+    }
+
+    @Override
+    public Class<?> getObject() {
+        return this.getRequestInfo().getObject();
+    }
+
+    @Override
+    public SoapObject getSoapObjectToList() {
+        return this.getRequestInfo().getSoapObjectToList();
+    }
+
+    @Override
+    public MarshalType[] getMarshalTypes() {
+        return this.getRequestInfo().getMarshal();
+    }
+
+    @Override
+    public String getObjectName() {
+        return this.getRequestInfo().getObjectName();
     }
 
     @Override

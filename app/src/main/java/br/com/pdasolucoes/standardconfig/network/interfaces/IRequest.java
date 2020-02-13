@@ -5,6 +5,8 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+
+import br.com.pdasolucoes.standardconfig.enums.MarshalType;
 import br.com.pdasolucoes.standardconfig.network.enums.MessageConfiguration;
 import br.com.pdasolucoes.standardconfig.network.enums.RequestType;
 import br.com.pdasolucoes.standardconfig.network.enums.TypeService;
@@ -24,6 +26,16 @@ public interface IRequest extends IAsyncTaskCallback<Void, Object> {
     TypeService getTypeService();
 
     String getNameSpace();
+
+    String getEntity();
+
+    String getObjectName();
+
+    Class<?> getObject();
+
+    SoapObject getSoapObjectToList();
+
+    MarshalType[] getMarshalTypes();
 
     void processResult(Object data);
 

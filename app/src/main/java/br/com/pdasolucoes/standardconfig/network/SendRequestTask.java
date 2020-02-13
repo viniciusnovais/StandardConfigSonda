@@ -10,6 +10,9 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.MarshalBase64;
+import org.ksoap2.serialization.MarshalDate;
+import org.ksoap2.serialization.MarshalFloat;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -21,6 +24,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 
+import br.com.pdasolucoes.standardconfig.enums.MarshalType;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 import br.com.pdasolucoes.standardconfig.network.enums.MessageConfiguration;
 import br.com.pdasolucoes.standardconfig.network.enums.TypeService;
@@ -50,7 +54,6 @@ public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
 
     }
 
-
     private Object requestSOAP() {
         SoapObject response;
 
@@ -61,13 +64,33 @@ public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
             envelope.dotNet = true;
             envelope.setOutputSoapObject(this.request.getRequestSoapObject());
 
-            String baseUrl = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, "");
+            String baseUrl =
+                    ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, "").
+                            concat("/")
+                            .concat(ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.Directory, ""));
 
-            HttpTransportSE transportSE = new HttpTransportSE(baseUrl + this.request.getService());
+            if (this.request.getObjectName() != null)
+                envelope.addMapping(this.request.getNameSpace(), this.request.getObjectName(), this.request.getObject());
+
+
+            for (MarshalType m : this.request.getMarshalTypes()) {
+                switch (m) {
+                    case FLOAT:
+                        new MarshalFloat().register(envelope);
+                        break;
+                    case BASE64:
+                        new MarshalBase64().register(envelope);
+                        break;
+                    case DATETIME:
+                        new MarshalDate().register(envelope);
+                        break;
+                }
+            }
+
+            HttpTransportSE transportSE = new HttpTransportSE(baseUrl.concat("/").concat(this.request.getService()));
             transportSE.call(this.request.getNameSpace() + this.request.getAction(), envelope);
 
             response = (SoapObject) envelope.getResponse();
-
 
         } catch (IOException e) {
             return e;

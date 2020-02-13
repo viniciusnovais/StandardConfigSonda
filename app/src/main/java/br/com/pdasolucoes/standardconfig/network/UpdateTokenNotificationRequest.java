@@ -28,7 +28,17 @@ public class UpdateTokenNotificationRequest extends SoapRequestBase {
 
     @Override
     protected RequestInfo getRequestInfo() {
-        return new RequestInfo("ReposicaoService.asmx", "UpdateTokenNotificacao", RequestType.OnLine, -1, false,"http://tempuri.org/", TypeService.SOAP);
+        return new RequestInfo("ReposicaoService.asmx",
+                "UpdateTokenNotificacao",
+                RequestType.OnLine,
+                -1,
+                false,
+                null,
+                null,
+                null,
+                "http://tempuri.org/",
+                null,
+                TypeService.SOAP);
     }
 
     @Override

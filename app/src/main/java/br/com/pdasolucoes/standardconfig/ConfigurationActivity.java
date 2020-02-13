@@ -1,17 +1,11 @@
 package br.com.pdasolucoes.standardconfig;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
-import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
 public class ConfigurationActivity extends AppCompatActivity {
 
@@ -60,9 +54,9 @@ public class ConfigurationActivity extends AppCompatActivity {
             serverAddress = serverAddress + "/";
         }
 
-//        if (!serverAddress.startsWith("http://") && !serverAddress.startsWith("https://")) {
-//            serverAddress = "https://" + serverAddress;
-//        }
+        if (!serverAddress.startsWith("http://")) {
+            serverAddress = "http://" + serverAddress;
+        }
 
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, serverAddress);
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, directory);

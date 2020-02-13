@@ -1,6 +1,11 @@
 package br.com.pdasolucoes.standardconfig.network.enums;
 
 
+import androidx.appcompat.app.AppCompatActivity;
+import org.ksoap2.serialization.SoapObject;
+import br.com.pdasolucoes.standardconfig.enums.MarshalType;
+import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
+
 public class RequestInfo {
     private String service;
     private String action;
@@ -9,6 +14,10 @@ public class RequestInfo {
     private boolean requireAuthentication;
     private TypeService typeService;
     private String nameSpace;
+    private String entity;
+    private Class<?> objectClass;
+    private MarshalType[] marshal;
+    private String objectName;
 
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId) {
         this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP);
@@ -23,7 +32,8 @@ public class RequestInfo {
         this.typeService = typeService;
     }
 
-    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication, String nameSpace, TypeService typeService) {
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication,
+                       String entity, String objectName, Class<?> objectClass, String nameSpace, MarshalType[] marshalTypes, TypeService typeService) {
         this.service = service;
         this.action = action;
         this.descriptionResourceId = descriptionResourceId;
@@ -31,6 +41,10 @@ public class RequestInfo {
         this.requireAuthentication = requireAuthentication;
         this.typeService = typeService;
         this.nameSpace = nameSpace;
+        this.entity = entity;
+        this.objectClass = objectClass;
+        this.marshal = marshalTypes;
+        this.objectName = objectName;
     }
 
     public String getService() {
@@ -46,7 +60,13 @@ public class RequestInfo {
     }
 
     public String getDescription() {
-        return "";
+
+        AppCompatActivity appCompatActivity = NavigationHelper.getCurrentAppCompat();
+
+        if (appCompatActivity == null || descriptionResourceId == -1)
+            return "";
+
+        return appCompatActivity.getString(descriptionResourceId);
     }
 
     public TypeService getTypeService() {
@@ -57,7 +77,27 @@ public class RequestInfo {
         return nameSpace;
     }
 
+    public String getEntity() {
+        return entity;
+    }
+
+    public Class<?> getObject() {
+        return objectClass;
+    }
+
+    public SoapObject getSoapObjectToList() {
+        return new SoapObject(nameSpace, entity);
+    }
+
     public boolean getRequireAuthentication() {
         return this.requireAuthentication;
+    }
+
+    public MarshalType[] getMarshal() {
+        return marshal;
+    }
+
+    public String getObjectName() {
+        return objectName;
     }
 }

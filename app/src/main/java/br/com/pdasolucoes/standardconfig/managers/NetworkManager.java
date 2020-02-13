@@ -4,7 +4,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import br.com.pdasolucoes.standardconfig.network.JsonRequestBase;
+import br.com.pdasolucoes.standardconfig.network.OffLineRequest;
 import br.com.pdasolucoes.standardconfig.network.SendRequestTask;
+import br.com.pdasolucoes.standardconfig.network.SoapRequestBase;
 import br.com.pdasolucoes.standardconfig.network.interfaces.IRequest;
 import br.com.pdasolucoes.standardconfig.utils.MyApplication;
 
@@ -28,6 +31,20 @@ public class NetworkManager {
         }
 
         return false;
+    }
+
+    public static void saveOffLineRequest(SoapRequestBase request) {
+//        NetworkRequestDataSource dataSource = SQLiteHelper.getInstance().getDataSource(NetworkRequestDataSource.class);
+//        dataSource.addRequest(request);
+//
+//        pendingRequests = dataSource.getRequests();
+    }
+
+    public static void removeOffLineRequest(OffLineRequest request) {
+//        NetworkRequestDataSource dataSource = SQLiteHelper.getInstance().getDataSource(NetworkRequestDataSource.class);
+//        dataSource.deleteRequest(request);
+//
+//        pendingRequests = dataSource.getRequests();
     }
 
     public static void sendRequest(IRequest iRequest) {

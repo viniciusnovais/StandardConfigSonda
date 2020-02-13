@@ -15,7 +15,17 @@ public class TestRequest extends SoapRequestBase {
 
     @Override
     protected RequestInfo getRequestInfo() {
-        return new RequestInfo("reposicaoservice.asmx","GetReposicao", RequestType.OnLine, -1,false,"http://tempuri.org/", TypeService.SOAP);
+        return new RequestInfo("reposicaoservice.asmx",
+                "GetReposicao",
+                RequestType.OnLine,
+                -1,
+                false,
+                null,
+                null,
+                null,
+                "http://tempuri.org/",
+                null,
+                TypeService.SOAP);
     }
 
     @Override
