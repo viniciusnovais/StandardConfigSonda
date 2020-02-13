@@ -2,13 +2,11 @@ package br.com.pdasolucoes.standardconfig.network;
 
 import org.ksoap2.serialization.SoapObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import br.com.pdasolucoes.standardconfig.Model.Reposicao;
+import br.com.pdasolucoes.standardconfig.model.Reposicao;
 import br.com.pdasolucoes.standardconfig.enums.MarshalType;
 import br.com.pdasolucoes.standardconfig.network.enums.MessageConfiguration;
 import br.com.pdasolucoes.standardconfig.network.enums.RequestInfo;

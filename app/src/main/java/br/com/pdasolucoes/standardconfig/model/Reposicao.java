@@ -1,8 +1,7 @@
-package br.com.pdasolucoes.standardconfig.Model;
+package br.com.pdasolucoes.standardconfig.model;
 
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
 
 import java.util.Hashtable;
 
