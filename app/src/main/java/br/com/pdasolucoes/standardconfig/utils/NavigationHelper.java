@@ -207,7 +207,7 @@ public class NavigationHelper {
 
     }
 
-    public static void showDialog(int title, ArrayAdapter<?> arrayAdapter, DialogInterface.OnClickListener negative, DialogInterface.OnClickListener select) {
+    public static void showDialog(int title, ArrayAdapter<?> arrayAdapter, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative, DialogInterface.OnClickListener select) {
 
         AppCompatActivity appCompatActivity = NavigationHelper.getCurrentAppCompat();
 
@@ -218,6 +218,7 @@ public class NavigationHelper {
         builderSingle.setTitle(appCompatActivity.getString(title));
 
         builderSingle.setNegativeButton("Cancelar", negative);
+        builderSingle.setPositiveButton("Confirmar", positive);
         builderSingle.setAdapter(arrayAdapter, select);
 
         builderSingle.show();
