@@ -220,10 +220,11 @@ public class NavigationHelper {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(appCompatActivity);
         builderSingle.setTitle(appCompatActivity.getString(title));
 
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(select);
+        builderSingle.setView(listView);
         builderSingle.setNegativeButton("Cancelar", negative);
         builderSingle.setPositiveButton("Confirmar", positive);
-        builderSingle.setAdapter(arrayAdapter, null);
-        builderSingle.create().getListView().setOnItemClickListener(select);
 
         builderSingle.show();
 
