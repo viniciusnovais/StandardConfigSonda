@@ -222,9 +222,8 @@ public class NavigationHelper {
 
         builderSingle.setNegativeButton("Cancelar", negative);
         builderSingle.setPositiveButton("Confirmar", positive);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(select);
-        //builderSingle.setAdapter(arrayAdapter);
+        builderSingle.setAdapter(arrayAdapter, null);
+        builderSingle.create().getListView().setOnItemClickListener(select);
 
         builderSingle.show();
 
