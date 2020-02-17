@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -207,19 +209,22 @@ public class NavigationHelper {
 
     }
 
-    public static void showDialog(int title, ArrayAdapter<?> arrayAdapter, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative, DialogInterface.OnClickListener select) {
+    public static void showDialog(int title, ArrayAdapter<?> arrayAdapter, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative, AdapterView.OnItemClickListener select) {
 
         AppCompatActivity appCompatActivity = NavigationHelper.getCurrentAppCompat();
-
         if (appCompatActivity == null)
             return;
+
+        ListView listView = new ListView(appCompatActivity);
 
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(appCompatActivity);
         builderSingle.setTitle(appCompatActivity.getString(title));
 
         builderSingle.setNegativeButton("Cancelar", negative);
         builderSingle.setPositiveButton("Confirmar", positive);
-        builderSingle.setAdapter(arrayAdapter, select);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(select);
+        //builderSingle.setAdapter(arrayAdapter);
 
         builderSingle.show();
 
