@@ -14,9 +14,15 @@ import androidx.multidex.MultiDex;
 
 import java.util.Objects;
 
+import br.com.pdasolucoes.standardconfig.ConfigurationActivity;
+import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
+import br.com.pdasolucoes.standardconfig.network.GetMobileVersionRequest;
+
 public class MyApplication extends Application {
 
     private static MyApplication instance;
+
+    private static boolean correctVersion = false;
 
     public static MyApplication getInstance() {
         return instance;
@@ -41,6 +47,12 @@ public class MyApplication extends Application {
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
                 NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
+
+                if (!ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.IsConfigured, false))
+                    return;
+
+                if (!correctVersion)
+                    NetworkManager.sendRequest(new GetMobileVersionRequest());
             }
 
             @Override
@@ -88,5 +100,13 @@ public class MyApplication extends Application {
                         focusedView.getWindowToken(), 0);
             }
         }
+    }
+
+    public static boolean isCorrectVersion() {
+        return correctVersion;
+    }
+
+    public static void setCorrectVersion(boolean correctVersion) {
+        MyApplication.correctVersion = correctVersion;
     }
 }

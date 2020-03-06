@@ -15,4 +15,8 @@
     <string name="configuration_server">Servidor</string>
     <string name="configuration_directory">Diretório</string>
     <string name="configuration_store">Filial</string>
+    <string name="verify_update_version">Verificando atualização de versão...</string>
+    <string name="download_apk">Carregando apk...</string>
+    <string name="error_view">Erro na visualização</string>
+    <string name="error_permission_denied">Dê permissão ao recurso recomendado.</string>
 </resources>

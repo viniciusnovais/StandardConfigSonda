@@ -2,13 +2,19 @@ package br.com.pdasolucoes.standardconfig;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
+import br.com.pdasolucoes.standardconfig.network.GetMobileVersionRequest;
 import br.com.pdasolucoes.standardconfig.network.TestRequest;
 import br.com.pdasolucoes.standardconfig.network.UpdateStatusReplacement;
 import br.com.pdasolucoes.standardconfig.network.UpdateTokenNotificationRequest;
+import br.com.pdasolucoes.standardconfig.utils.Helper;
 import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,11 +36,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                NetworkManager.sendRequest(new UpdateTokenNotificationRequest(
-//                        "APA91bGAhGhuGZFnpMtxswOOcQxhUKoWTeweBT73VIqevbNsYL6e3FIa9iV_K9pHc0r6pT_4UFALKHjGwVR0L0fzbT9Z0V1kqGRudSNtfhHpTrLSufDvrzEJ18NtwurM2eRZw8uuWuPI"
-//                ));
+                Helper.actionError(true, true);
 
-                NetworkManager.sendRequest(new UpdateStatusReplacement());
             }
         });
     }

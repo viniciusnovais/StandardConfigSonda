@@ -2,7 +2,9 @@ package br.com.pdasolucoes.standardconfig.network.enums;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import org.ksoap2.serialization.SoapObject;
+
 import br.com.pdasolucoes.standardconfig.enums.MarshalType;
 import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
@@ -23,6 +25,10 @@ public class RequestInfo {
         this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP);
     }
 
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace) {
+        this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP);
+    }
+
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication, TypeService typeService) {
         this.service = service;
         this.action = action;
@@ -30,6 +36,15 @@ public class RequestInfo {
         this.requestType = requestType;
         this.requireAuthentication = requireAuthentication;
         this.typeService = typeService;
+    }
+
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace, TypeService typeService) {
+        this.service = service;
+        this.action = action;
+        this.descriptionResourceId = descriptionResourceId;
+        this.requestType = requestType;
+        this.typeService = typeService;
+        this.nameSpace = nameSpace;
     }
 
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication,

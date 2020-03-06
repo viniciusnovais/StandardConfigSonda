@@ -209,20 +209,22 @@ public class NavigationHelper {
 
     }
 
-    public static void showDialog(int title, ArrayAdapter<?> arrayAdapter, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative, AdapterView.OnItemClickListener select) {
+    public static void showDialog(int title, String[] list, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative, DialogInterface.OnMultiChoiceClickListener select) {
 
         AppCompatActivity appCompatActivity = NavigationHelper.getCurrentAppCompat();
         if (appCompatActivity == null)
             return;
 
-        ListView listView = new ListView(appCompatActivity);
-
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(appCompatActivity);
         builderSingle.setTitle(appCompatActivity.getString(title));
 
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(select);
-        builderSingle.setView(listView);
+        boolean[] checkedItems = new boolean[list.length];
+
+        for (int i = 0; i < checkedItems.length; i++) {
+            checkedItems[i] = false;
+        }
+
+        builderSingle.setMultiChoiceItems(list, checkedItems, select);
         builderSingle.setNegativeButton("Cancelar", negative);
         builderSingle.setPositiveButton("Confirmar", positive);
 

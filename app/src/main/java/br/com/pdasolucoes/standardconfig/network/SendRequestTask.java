@@ -73,17 +73,19 @@ public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
                 envelope.addMapping(this.request.getNameSpace(), this.request.getObjectName(), this.request.getObject());
 
 
-            for (MarshalType m : this.request.getMarshalTypes()) {
-                switch (m) {
-                    case FLOAT:
-                        new MarshalFloat().register(envelope);
-                        break;
-                    case BASE64:
-                        new MarshalBase64().register(envelope);
-                        break;
-                    case DATETIME:
-                        new MarshalDate().register(envelope);
-                        break;
+            if (this.request.getMarshalTypes() != null) {
+                for (MarshalType m : this.request.getMarshalTypes()) {
+                    switch (m) {
+                        case FLOAT:
+                            new MarshalFloat().register(envelope);
+                            break;
+                        case BASE64:
+                            new MarshalBase64().register(envelope);
+                            break;
+                        case DATETIME:
+                            new MarshalDate().register(envelope);
+                            break;
+                    }
                 }
             }
 
@@ -93,9 +95,11 @@ public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
             response = (SoapObject) envelope.getResponse();
 
         } catch (IOException e) {
-            return e;
+            MessageConfiguration.ExceptionError.setExceptionErrorMessage(e.getMessage());
+            return MessageConfiguration.ExceptionError;
         } catch (XmlPullParserException e) {
-            return e;
+            MessageConfiguration.ExceptionError.setExceptionErrorMessage(e.getMessage());
+            return MessageConfiguration.ExceptionError;
         }
 
         return response;
@@ -115,9 +119,6 @@ public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
 
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost postRequest = new HttpPost(baseUrl + service + "/" + action);
-//            if (ApplicationManager.IsSignedIn()) {
-//                postRequest.addHeader("Token", ApplicationManager.getToken());
-//            }
 
             HttpEntity entity = this.request.getRequestEntity();
             postRequest.setEntity(entity);
@@ -138,13 +139,14 @@ public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
 
             return jsonResponse;
         } catch (SocketTimeoutException e) {
-            //return ResultCode.RequestTimeout.getJSONResult();
-            return null;
+            MessageConfiguration.ExceptionError.setExceptionErrorMessage(e.getMessage());
+            return MessageConfiguration.ExceptionError;
         } catch (MalformedURLException e) {
-            //return ResultCode.InvalidServerURL.getJSONResult();
-            return null;
+            MessageConfiguration.ExceptionError.setExceptionErrorMessage(e.getMessage());
+            return MessageConfiguration.ExceptionError;
         } catch (IOException e) {
-            return MessageConfiguration.NetworkError.getJSONResult();
+            MessageConfiguration.ExceptionError.setExceptionErrorMessage(e.getMessage());
+            return MessageConfiguration.ExceptionError;
         }
     }
 }

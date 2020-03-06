@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 
 import br.com.pdasolucoes.standardconfig.network.JsonRequestBase;
 import br.com.pdasolucoes.standardconfig.network.OffLineRequest;
+import br.com.pdasolucoes.standardconfig.network.RequestUpdateApkTask;
 import br.com.pdasolucoes.standardconfig.network.SendRequestTask;
 import br.com.pdasolucoes.standardconfig.network.SoapRequestBase;
 import br.com.pdasolucoes.standardconfig.network.interfaces.IRequest;
@@ -50,5 +51,10 @@ public class NetworkManager {
     public static void sendRequest(IRequest iRequest) {
         SendRequestTask sendRequestTask = new SendRequestTask(iRequest);
         sendRequestTask.execute();
+    }
+
+    public static void sendRequestApk(IRequest iRequest) {
+        RequestUpdateApkTask requestUpdateApkTask = new RequestUpdateApkTask(iRequest);
+        requestUpdateApkTask.execute();
     }
 }

@@ -20,6 +20,7 @@ import br.com.pdasolucoes.standardconfig.network.enums.RequestType;
 import br.com.pdasolucoes.standardconfig.network.enums.TypeService;
 import br.com.pdasolucoes.standardconfig.network.interfaces.IRequest;
 import br.com.pdasolucoes.standardconfig.network.interfaces.IRequestHandler;
+import br.com.pdasolucoes.standardconfig.utils.MyApplication;
 import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
 public abstract class RequestBase implements IRequest {
@@ -60,17 +61,13 @@ public abstract class RequestBase implements IRequest {
             this.closeProgressDialog();
         }
 
-        MessageConfiguration messageConfiguration;
+        MessageConfiguration messageConfiguration = null;
 
-        if (result != null) {
-            //messageConfiguration = ResultCode.getResultCode(result.optInt("ResultCode", ResultCode.Success.getCode()));
-            messageConfiguration = null;
-        } else {
-            messageConfiguration = MessageConfiguration.NetworkError;
+        if (result instanceof MessageConfiguration) {
+            messageConfiguration = (MessageConfiguration) result;
         }
 
-        if (this.handleError(messageConfiguration, result)
-                || this.handleError(result)) {
+        if (this.handleError(messageConfiguration)) {
             if (this.handler != null) {
                 this.handler.onError();
             }
@@ -112,47 +109,15 @@ public abstract class RequestBase implements IRequest {
         }
     }
 
-    private boolean handleError(Object object) {
-        if (object instanceof Exception) {
-            NavigationHelper.showDialog("Erro", ((Exception) object).getMessage(), null, null);
+    private boolean handleError(MessageConfiguration messageConfiguration) {
+
+        if (messageConfiguration == null)
+            return false;
+
+        if (messageConfiguration == MessageConfiguration.ExceptionError) {
+            NavigationHelper.showDialog(context.getString(R.string.title_error), messageConfiguration.getExceptionErrorMessage(), null, null);
             return true;
         }
-
-        return false;
-    }
-
-    private boolean handleError(MessageConfiguration messageConfiguration, Object object) {
-
-
-//        if (messageConfiguration == ResultCode.InvalidToken) {
-//            ApplicationManager.signOff();
-//            ApplicationManager.stopManagers();
-//
-//            if (CredentialsManager.isLogged()) {
-//                NavigationHelper.showAlertDialog(R.string.alert_resultcode_title, resultCode.getDescriptionId(), new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        CredentialsManager.confirmLogoff();
-//                    }
-//                });
-//            } else {
-//                AuthenticateRequest signInRequest = new AuthenticateRequest(this);
-//                NetworkManager.sendRequest(signInRequest);
-//            }
-//            return true;
-//        }
-
-//        if (messageConfiguration == ResultCode.LogonRequired) {
-//            ApplicationManager.stopManagers();
-//
-//            if (CredentialsManager.isLogged()) {
-//                NavigationHelper.showAlertDialog(R.string.alert_resultcode_title, messageConfiguration.getMsg(), new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        CredentialsManager.confirmLogoff();
-//                    }
-//                });
-//            }
-//            return true;
-//        }
 
         if (messageConfiguration == MessageConfiguration.NetworkError &&
                 this.getRequestType() == RequestType.OffLine) {
@@ -160,40 +125,14 @@ public abstract class RequestBase implements IRequest {
             return false;
         }
 
-//        if (messageConfiguration != ResultCode.Success) {
-//            if (this.getRequestType() == RequestType.OnLine) {
-//                if (messageConfiguration == ResultCode.CustomError) {
-//                    String title = SMobileApplication.getStringResource(R.string.alert_resultcode_title);
-//                    String message = SMobileApplication.getStringResource(resultCode.getDescriptionId());
-//                    message = result.optString("Message", message);
-//                    NavigationHelper.showAlertDialog(title, message, null);
-//                } else if (messageConfiguration == ResultCode.UnsupportedVersion) {
-//                    String title = SMobileApplication.getStringResource(R.string.alert_resultcode_unsupport_version_title);
-//                    String message = SMobileApplication.getStringResource(resultCode.getDescriptionId());
-//                    message = message.concat("\n").concat(result.optString("Message").replaceAll("[;]","\n"));
-//                    NavigationHelper.showAlertDialogCustomButton(title, message, R.string.alert_unsupport_version_update, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            NetworkManager.updateApkRequest(new UpdateApkRequest());
-//                        }
-//                    });
-        //} else {
+        if (messageConfiguration == MessageConfiguration.NetworkError
+                || messageConfiguration == MessageConfiguration.PermissonDeniedError) {
+            NavigationHelper.showDialog(context.getString(R.string.title_error), context.getString(messageConfiguration.getMsg()), null, null);
+            return true;
+        }
 
-//                    if (messageConfiguration == ResultCode.InvalidUser || messageConfiguration == ResultCode.UserLoggedOn) {
-//                        String message = SMobileApplication.getStringResource(resultCode.getDescriptionId());
-//                        String user = result.optString("Message", null);
-//                        message += " [" + user + "]";
-//                        NavigationHelper.showAlertDialog(SMobileApplication.getStringResource(R.string.alert_resultcode_title), message, null);
-//                    } else
-//                        NavigationHelper.showAlertDialog(R.string.alert_resultcode_title, resultCode.getDescriptionId(), null);
-        //}
-        // }
-
-        //this.processError(messageConfiguration);
-        //return true;
-        //}
-
-        return false;
+        this.processError(messageConfiguration);
+        return true;
     }
 
     @Override
@@ -272,5 +211,10 @@ public abstract class RequestBase implements IRequest {
     @Override
     public HttpEntity getRequestEntity() throws UnsupportedEncodingException {
         return null;
+    }
+
+    @Override
+    public SoapObject getRequestSoapObject() {
+        return this.getRequestSoapObject();
     }
 }
