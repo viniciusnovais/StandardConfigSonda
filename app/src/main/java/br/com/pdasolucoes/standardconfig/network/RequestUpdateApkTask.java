@@ -83,7 +83,8 @@ public class RequestUpdateApkTask extends AsyncTaskRunner<Void, Void, Object> {
             Uri uri;
             final File file1 = new File(file, action);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file1);
+
+                uri = FileProvider.getUriForFile(context, MyApplication.getInstance().getPackageName() + ".provider", file1);
             } else {
                 uri = Uri.fromFile(file1);
             }

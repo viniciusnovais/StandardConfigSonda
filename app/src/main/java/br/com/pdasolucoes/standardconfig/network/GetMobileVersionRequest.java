@@ -2,6 +2,9 @@ package br.com.pdasolucoes.standardconfig.network;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
 import org.ksoap2.serialization.SoapObject;
 
 import br.com.pdasolucoes.standardconfig.BuildConfig;
@@ -48,8 +51,14 @@ public class GetMobileVersionRequest extends SoapRequestBase {
         String mobileNameApk = ((SoapObject) data).getPropertyAsString("MobileNameApk");
 
         //usar posteriormente, caso necessário
-        int versionCode = BuildConfig.VERSION_CODE;
-        String versionName = BuildConfig.VERSION_NAME;
+        //int versionCode = BuildConfig.VERSION_CODE;
+        String versionName;
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            versionName = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            return;
+        }
         if (!versionName.equals(mobileVersion)) {
             NetworkManager.sendRequestApk(new UpdateApkTaskRequest(mobileNamePaste, mobileNameApk));
             return;
