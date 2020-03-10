@@ -14,6 +14,8 @@ import br.com.pdasolucoes.standardconfig.R;
 
 public class Helper {
 
+    private static MediaPlayer mediaPlayer;
+
     public static String formatDateToCsharp(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
     }
@@ -40,9 +42,15 @@ public class Helper {
         }
 
         if (song) {
-            MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.error);
-            mediaPlayer.release();
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+
+            mediaPlayer = MediaPlayer.create(context, R.raw.error);
             mediaPlayer.start();
         }
+
     }
 }
