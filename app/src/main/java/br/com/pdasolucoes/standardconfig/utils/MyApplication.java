@@ -38,6 +38,7 @@ public class MyApplication extends Application {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+                NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
             }
 
             @Override
@@ -46,9 +47,9 @@ public class MyApplication extends Application {
 
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
-                NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
 
-                if (!ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.IsConfigured, false))
+                if (!ConfigurationHelper.loadPreference(
+                        ConfigurationHelper.ConfigurationEntry.IsConfigured, false))
                     return;
 
                 if (!correctVersion)
