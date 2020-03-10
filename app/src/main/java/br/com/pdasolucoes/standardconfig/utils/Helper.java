@@ -38,9 +38,11 @@ public class Helper {
             } else if (v != null)
                 v.vibrate(500);
         }
+
         if (song) {
             MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.error);
-            mediaPlayer.start(); //
+            mediaPlayer.release();
+            mediaPlayer.start();
         }
     }
 }
