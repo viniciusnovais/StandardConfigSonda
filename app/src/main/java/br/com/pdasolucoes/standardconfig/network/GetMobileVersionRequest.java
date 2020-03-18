@@ -7,7 +7,8 @@ import android.content.pm.PackageManager;
 
 import org.ksoap2.serialization.SoapObject;
 
-import br.com.pdasolucoes.standardconfig.BuildConfig;
+import java.util.ArrayList;
+import java.util.List;
 import br.com.pdasolucoes.standardconfig.R;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 import br.com.pdasolucoes.standardconfig.network.enums.MessageConfiguration;
@@ -59,7 +60,15 @@ public class GetMobileVersionRequest extends SoapRequestBase {
         } catch (PackageManager.NameNotFoundException e) {
             return;
         }
-        if (!versionName.equals(mobileVersion)) {
+
+        String[] mVersions = mobileVersion.split("[;]");
+        List<Boolean> isUpdates = new ArrayList<>();
+
+        for (String v : mVersions) {
+            isUpdates.add(!versionName.equals(v.trim()));
+        }
+
+        if (!isUpdates.contains(false)) {
             NetworkManager.sendRequestApk(new UpdateApkTaskRequest(mobileNamePaste, mobileNameApk));
             return;
         }
