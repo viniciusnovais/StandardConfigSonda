@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+//apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
@@ -8,8 +9,8 @@ android {
         //applicationId "br.com.pdasolucoes.standardconfig"
         minSdkVersion 15
         targetSdkVersion 29
-        //versionCode 1
-        //versionName "1.0"
+//        versionCode 1
+//        versionName "1.0.8"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,4 +47,4 @@ task exportJar(type: Copy) {
     rename('classes.jar', 'AndroidPlugin.jar')
 }
 
-exportJar.dependsOn(deleteOldJar,build)
+exportJar.dependsOn(deleteOldJar, build)

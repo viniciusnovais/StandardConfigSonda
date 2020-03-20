@@ -47,7 +47,7 @@ public class MyApplication extends Application {
 
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
-
+                NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
                 if (!ConfigurationHelper.loadPreference(
                         ConfigurationHelper.ConfigurationEntry.IsConfigured, false))
                     return;
