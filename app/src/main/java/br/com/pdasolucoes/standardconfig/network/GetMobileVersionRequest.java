@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.pdasolucoes.standardconfig.R;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 import br.com.pdasolucoes.standardconfig.network.enums.MessageConfiguration;
@@ -37,19 +39,28 @@ public class GetMobileVersionRequest extends SoapRequestBase {
     @Override
     public void processResult(Object data) {
 
-        Context context = NavigationHelper.getCurrentAppCompat();
+        Activity context = NavigationHelper.getCurrentAppCompat();
 
         if (context == null || data == null)
             return;
 
-        if (!PermissionHelper.checkWriteExternalStoragePermission((Activity) context))
+        if (!PermissionHelper.checkWriteExternalStoragePermission(context))
             return;
 
-        String mobileVersion = ((SoapObject) data).getPropertyAsString("MobileVersion");
-        //usar posteriormente, caso necessário
-        String mobileUpdateDescription = ((SoapObject) data).getPropertyAsString("MobileUpdateDescription");
-        String mobileNamePaste = ((SoapObject) data).getPropertyAsString("MobileNamePaste");
-        String mobileNameApk = ((SoapObject) data).getPropertyAsString("MobileNameApk");
+        String mobileVersion;
+        String mobileUpdateDescription;
+        String mobileNamePaste;
+        String mobileNameApk;
+
+        try {
+            mobileVersion = ((SoapObject) data).getPropertyAsString("MobileVersion");
+            //usar posteriormente, caso necessário
+            mobileUpdateDescription = ((SoapObject) data).getPropertyAsString("MobileUpdateDescription");
+            mobileNamePaste = ((SoapObject) data).getPropertyAsString("MobileNamePaste");
+            mobileNameApk = ((SoapObject) data).getPropertyAsString("MobileNameApk");
+        } catch (Exception e) {
+            return;
+        }
 
         //usar posteriormente, caso necessário
         //int versionCode = BuildConfig.VERSION_CODE;
@@ -60,7 +71,6 @@ public class GetMobileVersionRequest extends SoapRequestBase {
         } catch (PackageManager.NameNotFoundException e) {
             return;
         }
-
         String[] mVersions = mobileVersion.split("[;]");
         List<Boolean> isUpdates = new ArrayList<>();
 
