@@ -8,13 +8,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import br.com.pdasolucoes.standardconfig.utils.MyApplication;
 
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
 
     /**
      * Called when the activity is first created.
