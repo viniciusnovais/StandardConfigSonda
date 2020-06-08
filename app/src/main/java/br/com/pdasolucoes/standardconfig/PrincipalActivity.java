@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.pdasolucoes.standardconfig.managers.AuthManager;
+import br.com.pdasolucoes.standardconfig.model.Usuario;
 
 public abstract class PrincipalActivity extends AppCompatActivity {
 
@@ -38,8 +39,10 @@ public abstract class PrincipalActivity extends AppCompatActivity {
         viewHeader = view.findViewById(R.id.header);
         activityContainer = view.findViewById(R.id.linearLayoutContent);
 
-        tvPerfil.setText(getString(R.string.perfil_dois_pontos).concat(" ").concat(AuthManager.getCurrentUser().getPerfil()));
-        tvUsuario.setText(getString(R.string.usuario_dois_pontos).concat(" ").concat(AuthManager.getCurrentUser().getNome()));
+        Usuario u = AuthManager.getCurrentUser();
+
+        tvPerfil.setText(getString(R.string.perfil_dois_pontos).concat(" ").concat(u != null ? u.getPerfil() : "-"));
+        tvUsuario.setText(getString(R.string.usuario_dois_pontos).concat(" ").concat(u != null ? u.getNome() : "-"));
         tvModulo.setText(getString(R.string.modulo_dois_pontos).concat(" ").concat(context.getTitle().toString()));
 
     }
