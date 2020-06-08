@@ -36,4 +36,5 @@
     <string name="filial">Filiais</string>
     <string name="pref_filial_key">pref_filial_key</string>
     <string name="pref_filial">Filial</string>
+    <string name="version_code">1.0.16</string>
 </resources>

@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.principal_activity_login);
 
         TextView tvVersion = findViewById(R.id.tvVersion);
-        tvVersion.setText(getString(R.string.versao).concat(BuildConfig.VERSION_NAME));
+        tvVersion.setText(getString(R.string.versao).concat(getString(R.string.version_code)));
         editUser = findViewById(R.id.etUser);
         editPass = findViewById(R.id.etPassword);
 
