@@ -19,4 +19,21 @@
     <string name="download_apk">Carregando apk...</string>
     <string name="error_view">Erro na visualização</string>
     <string name="error_permission_denied">Dê permissão ao recurso recomendado.</string>
+    <string name="usuario">Usuário</string>
+    <string name="entrar">Entrar</string>
+    <string name="senha">Senha</string>
+    <string name="versao">Versão:</string>
+    <string name="powered">Powered by:</string>
+    <string name="usuario_dois_pontos">Usuário:</string>
+    <string name="modulo_dois_pontos">Módulo:</string>
+    <string name="perfil_dois_pontos">Perfil:</string>
+    <string name="required_all_labels">Preencha todos os campos</string>
+    <string name="error_auth">Erro Autenticação</string>
+    <string name="deseja_sair">Deseja realmente sair ?</string>
+    <string name="load_filial">Carregando filiais...</string>
+    <string name="selecione_filial">Selecione a filial</string>
+    <string name="fechar">Fechar</string>
+    <string name="filial">Filiais</string>
+    <string name="pref_filial_key">pref_filial_key</string>
+    <string name="pref_filial">Filial</string>
 </resources>

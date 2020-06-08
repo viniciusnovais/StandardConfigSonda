@@ -1,6 +1,7 @@
 package br.com.pdasolucoes.standardconfig.utils;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import br.com.pdasolucoes.standardconfig.enums.FragmentTag;
 public class NavigationHelper {
 
     private static WeakReference<AppCompatActivity> weakAppCompat;
+    private static WeakReference<DialogInterface> weakDialog;
 
     public static AppCompatActivity getCurrentAppCompat() {
         if (NavigationHelper.weakAppCompat == null) {
@@ -29,6 +31,19 @@ public class NavigationHelper {
 
         return NavigationHelper.weakAppCompat.get();
     }
+
+    public static DialogInterface getCurrentDialog() {
+        if (NavigationHelper.weakDialog == null) {
+            return null;
+        }
+
+        return NavigationHelper.weakDialog.get();
+    }
+
+    static void setCurrentDialog(DialogInterface dialog) {
+        NavigationHelper.weakDialog = new WeakReference<>(dialog);
+    }
+
 
     static void setCurrentAppCompat(AppCompatActivity activity) {
         NavigationHelper.weakAppCompat = new WeakReference<>(activity);
@@ -160,6 +175,42 @@ public class NavigationHelper {
             builder.setNeutralButton(strNeutral, neutral);
         }
 
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    public static void showDialog(String title, String msg, int strPositive, DialogInterface.OnClickListener positive, int strNegative, DialogInterface.OnClickListener negative, int strNeutral, DialogInterface.OnClickListener neutral) {
+
+        AppCompatActivity appCompatActivity = NavigationHelper.getCurrentAppCompat();
+
+        if (appCompatActivity == null)
+            return;
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(appCompatActivity);
+        builder.setTitle(title);
+        builder.setMessage(msg);
+
+        if (positive != null) {
+            builder.setPositiveButton(strPositive, positive);
+        } else {
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }
+
+        if (negative != null && strNeutral != -1) {
+            builder.setNegativeButton(strNegative, negative);
+        }
+
+        if (strNeutral != -1 && neutral != null) {
+            builder.setNeutralButton(strNeutral, neutral);
+        }
+
         builder.create().show();
 
     }
@@ -204,6 +255,12 @@ public class NavigationHelper {
     }
 
     public static void showConfirmDialog(int title, int msg) {
+
+        NavigationHelper.showDialog(title, msg, -1, null, -1, null, -1, null);
+
+    }
+
+    public static void showConfirmDialog(String title, String msg) {
 
         NavigationHelper.showDialog(title, msg, -1, null, -1, null, -1, null);
 

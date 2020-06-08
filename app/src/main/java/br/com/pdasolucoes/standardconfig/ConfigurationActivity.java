@@ -62,31 +62,12 @@ public class ConfigurationActivity extends AppCompatActivity {
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, directory);
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Store, store);
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsConfigured, true);
-        // NavigationHelper.startActivity(LoginActivity.class);
 
         onBackPressed();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        // If request is cancelled, the result arrays are empty.
-//        if (requestCode == PermissionHelper.READ_PHONE_STATE_REQUEST) {
-//            if (grantResults.length > 0
-//                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                this.validateServerAddress();
-//            } else {
-//                NavigationHelper.showConfirmDialog(R.string.alert_genericerror_title
-//                        , R.string.alert_permissionerror_message);
-//            }
-//        } else if (requestCode == PermissionHelper.WRITE_EXTERNAL_STORAGE_REQUEST) {
-//            if (grantResults.length > 0
-//                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                this.validateServerAddress();
-//            } else {
-//                NavigationHelper.showConfirmDialog(R.string.alert_genericerror_title
-//                        , R.string.alert_permissionerror_message);
-//            }
-//        }
     }
 
     @Override
@@ -94,18 +75,4 @@ public class ConfigurationActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-//    private void cancel() {
-//        NavigationHelper.showDialog(
-//                R.string.navigation_exit_title,
-//                R.string.navigation_exit_message,
-//                R.string.yes,
-//                new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                        finish();
-//                    }
-//                }, R.string.no);
-//
-//    }
 }

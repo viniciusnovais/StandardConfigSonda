@@ -3,6 +3,7 @@ package br.com.pdasolucoes.standardconfig.utils;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -18,7 +19,7 @@ import br.com.pdasolucoes.standardconfig.ConfigurationActivity;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 import br.com.pdasolucoes.standardconfig.network.GetMobileVersionRequest;
 
-public class MyApplication extends Application {
+public class MyApplication extends Application implements DialogInterface.OnShowListener {
 
     private static MyApplication instance;
 
@@ -48,12 +49,12 @@ public class MyApplication extends Application {
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
                 NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
-                if (!ConfigurationHelper.loadPreference(
-                        ConfigurationHelper.ConfigurationEntry.IsConfigured, false))
-                    return;
+//                if (!ConfigurationHelper.loadPreference(
+//                        ConfigurationHelper.ConfigurationEntry.IsConfigured, false))
+//                    return;
 
-                if (!correctVersion)
-                    NetworkManager.sendRequest(new GetMobileVersionRequest());
+//                if (!correctVersion)
+//                    NetworkManager.sendRequest(new GetMobileVersionRequest());
             }
 
             @Override
@@ -75,6 +76,7 @@ public class MyApplication extends Application {
             public void onActivityDestroyed(@NonNull Activity activity) {
                 clearReferences(activity);
             }
+
         });
     }
 
@@ -103,11 +105,18 @@ public class MyApplication extends Application {
         }
     }
 
+    @Deprecated
     public static boolean isCorrectVersion() {
         return correctVersion;
     }
 
+    @Deprecated
     public static void setCorrectVersion(boolean correctVersion) {
         MyApplication.correctVersion = correctVersion;
+    }
+
+    @Override
+    public void onShow(DialogInterface dialog) {
+        NavigationHelper.setCurrentDialog(dialog);
     }
 }

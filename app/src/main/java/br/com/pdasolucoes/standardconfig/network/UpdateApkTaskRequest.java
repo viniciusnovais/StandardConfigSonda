@@ -18,7 +18,7 @@ public class UpdateApkTaskRequest extends JsonRequestBase {
     String paste;
 
     public UpdateApkTaskRequest(String paste, String mobileNameApk) {
-        this.mobileNameApk = mobileNameApk;
+        this.mobileNameApk = mobileNameApk.replaceAll(".apk", "");
         this.paste = paste;
     }
 
