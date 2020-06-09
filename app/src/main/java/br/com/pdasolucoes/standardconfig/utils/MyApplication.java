@@ -84,6 +84,7 @@ public class MyApplication extends Application implements DialogInterface.OnShow
         Activity currActivity = NavigationHelper.getCurrentAppCompat();
         if (currActivity != null && currActivity.equals(activity)) {
             NavigationHelper.setCurrentAppCompat(null);
+            NavigationHelper.cleanObjects();
         }
     }
 

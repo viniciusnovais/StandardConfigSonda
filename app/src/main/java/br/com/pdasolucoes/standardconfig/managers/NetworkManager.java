@@ -124,6 +124,8 @@ public class NetworkManager {
             return;
 
         Intent launchIntent = activity.getPackageManager().getLaunchIntentForPackage(packageName);
+        
+
         if (launchIntent != null) {
             activity.startActivity(launchIntent);
         }

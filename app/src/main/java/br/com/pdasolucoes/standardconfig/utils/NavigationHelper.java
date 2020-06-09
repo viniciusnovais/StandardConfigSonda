@@ -17,6 +17,9 @@ import androidx.fragment.app.FragmentManager;
 import java.lang.ref.WeakReference;
 
 import br.com.pdasolucoes.standardconfig.enums.FragmentTag;
+import br.com.pdasolucoes.standardconfig.managers.FilialManager;
+import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
+import br.com.pdasolucoes.standardconfig.managers.SystemManager;
 
 
 public class NavigationHelper {
@@ -307,5 +310,9 @@ public class NavigationHelper {
 
 
         fragmentManager.popBackStackImmediate();
+    }
+
+    public static void cleanObjects(){
+        SystemManager.setCurrentSystem(null);
     }
 }
