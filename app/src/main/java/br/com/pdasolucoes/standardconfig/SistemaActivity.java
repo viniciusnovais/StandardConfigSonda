@@ -71,6 +71,8 @@ public class SistemaActivity extends PrincipalActivity implements SystemsRequest
                     NetworkManager.tryUpdateOrOpenApk(sistema);
                 else
                     NetworkManager.sendRequestApk(new UpdateApkTaskRequest(sistema.getNamePaste(), sistema.getNameApk()));
+
+                SystemManager.setCurrentSystem(sistema);
             }
         });
         FilialManager.loadFilial();

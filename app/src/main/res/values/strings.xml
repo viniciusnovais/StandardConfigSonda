@@ -23,6 +23,7 @@
     <string name="entrar">Entrar</string>
     <string name="senha">Senha</string>
     <string name="versao">Versão: 1.0.19</string>
+    <string name="versao_description">Versão: </string>
     <string name="powered">Powered by:</string>
     <string name="usuario_dois_pontos">Usuário:</string>
     <string name="modulo_dois_pontos">Módulo:</string>

@@ -82,7 +82,7 @@ public class NetworkManager {
         }
     }
 
-    private static String getVersionName(String packageName) {
+    public static String getVersionName(String packageName) {
 
         AppCompatActivity activity = NavigationHelper.getCurrentAppCompat();
 

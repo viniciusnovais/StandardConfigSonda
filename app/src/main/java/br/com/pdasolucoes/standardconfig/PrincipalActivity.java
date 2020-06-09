@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.pdasolucoes.standardconfig.managers.AuthManager;
+import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
+import br.com.pdasolucoes.standardconfig.managers.SystemManager;
 import br.com.pdasolucoes.standardconfig.model.Usuario;
 
 public abstract class PrincipalActivity extends AppCompatActivity {
@@ -36,6 +38,7 @@ public abstract class PrincipalActivity extends AppCompatActivity {
         TextView tvModulo = view.findViewById(R.id.tvModulo);
         TextView tvUsuario = view.findViewById(R.id.tvUsuario);
         TextView tvPerfil = view.findViewById(R.id.tvPerfil);
+        TextView tvVersao = view.findViewById(R.id.tvVersion);
         viewHeader = view.findViewById(R.id.header);
         activityContainer = view.findViewById(R.id.linearLayoutContent);
 
@@ -44,6 +47,11 @@ public abstract class PrincipalActivity extends AppCompatActivity {
         tvPerfil.setText(getString(R.string.perfil_dois_pontos).concat(" ").concat(u != null ? u.getPerfil() : "-"));
         tvUsuario.setText(getString(R.string.usuario_dois_pontos).concat(" ").concat(u != null ? u.getNome() : "-"));
         tvModulo.setText(getString(R.string.modulo_dois_pontos).concat(" ").concat(context.getTitle().toString()));
+
+        if (SystemManager.getCurrentSystem() != null)
+            tvVersao.setText(getString(R.string.versao_description).concat(" ")
+                    .concat(NetworkManager.getVersionName(NetworkManager.getVersionName(SystemManager.getCurrentSystem().getPackageName()))));
+
 
     }
 

@@ -13,6 +13,7 @@ public class SystemManager {
 
     private static List<Sistema> sistemas;
     public static SystemsRequest.onSucessResult onSucessResult;
+    private static Sistema currentSystem;
 
     public static void setOnSucessListener(SystemsRequest.onSucessResult onSucessResult) {
         SystemManager.onSucessResult = onSucessResult;
@@ -25,6 +26,14 @@ public class SystemManager {
 
     public static void setSistemas(List<Sistema> sistemas) {
         SystemManager.sistemas = sistemas;
+    }
+
+    public static Sistema getCurrentSystem() {
+        return currentSystem;
+    }
+
+    public static void setCurrentSystem(Sistema currentSystem) {
+        SystemManager.currentSystem = currentSystem;
     }
 
     private void popupSair() {
