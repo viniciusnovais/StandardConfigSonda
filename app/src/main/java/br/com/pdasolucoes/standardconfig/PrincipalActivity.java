@@ -38,8 +38,9 @@ public abstract class PrincipalActivity extends AppCompatActivity {
         TextView tvModulo = view.findViewById(R.id.tvModulo);
         TextView tvUsuario = view.findViewById(R.id.tvUsuario);
         TextView tvPerfil = view.findViewById(R.id.tvPerfil);
-        TextView tvVersao = view.findViewById(R.id.tvVersion);
         viewHeader = view.findViewById(R.id.header);
+        View viewFooter = view.findViewById(R.id.footer);
+        TextView tvVersao = viewFooter.findViewById(R.id.tvVersion);
         activityContainer = view.findViewById(R.id.linearLayoutContent);
 
         Usuario u = AuthManager.getCurrentUser();
@@ -51,6 +52,8 @@ public abstract class PrincipalActivity extends AppCompatActivity {
         if (SystemManager.getCurrentSystem() != null)
             tvVersao.setText(getString(R.string.versao_description).concat(" ")
                     .concat(NetworkManager.getVersionName(NetworkManager.getVersionName(SystemManager.getCurrentSystem().getPackageName()))));
+        else
+            tvVersao.setText(getString(R.string.versao));
 
 
     }

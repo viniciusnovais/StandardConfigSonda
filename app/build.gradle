@@ -1,16 +1,16 @@
-apply plugin: 'com.android.library'
-//apply plugin: 'com.android.application'
+//apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         useLibrary 'org.apache.http.legacy'
-        //applicationId "br.com.pdasolucoes.standardconfig"
+        applicationId "br.com.pdasolucoes.standardconfig"
         minSdkVersion 15
         targetSdkVersion 29
-        //versionCode 1
-        //versionName "1.0.16"
+        versionCode 1
+        versionName "1.0.22"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
