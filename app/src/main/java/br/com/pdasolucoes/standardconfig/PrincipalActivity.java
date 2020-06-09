@@ -51,7 +51,7 @@ public abstract class PrincipalActivity extends AppCompatActivity {
 
         if (SystemManager.getCurrentSystem() != null)
             tvVersao.setText(getString(R.string.versao_description).concat(" ")
-                    .concat(NetworkManager.getVersionName(NetworkManager.getVersionName(SystemManager.getCurrentSystem().getPackageName()))));
+                    .concat(NetworkManager.getVersionName(SystemManager.getCurrentSystem().getPackageName())));
         else
             tvVersao.setText(getString(R.string.versao));
 
