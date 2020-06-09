@@ -149,8 +149,10 @@ public class NavigationHelper {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(appCompatActivity);
-        builder.setTitle(appCompatActivity.getString(title));
-        builder.setMessage(appCompatActivity.getString(msg));
+        if (title != -1)
+            builder.setTitle(appCompatActivity.getString(title));
+        if (msg != -1)
+            builder.setMessage(appCompatActivity.getString(msg));
 
         if (positive != null) {
             builder.setPositiveButton(strPositive, positive);
@@ -163,7 +165,7 @@ public class NavigationHelper {
             });
         }
 
-        if (negative != null) {
+        if (negative != null && strNegative != -1) {
             builder.setNegativeButton(strNegative, negative);
         } else {
             builder.setNeutralButton(strNegative, new DialogInterface.OnClickListener() {
@@ -312,7 +314,7 @@ public class NavigationHelper {
         fragmentManager.popBackStackImmediate();
     }
 
-    public static void cleanObjects(){
+    public static void cleanObjects() {
         SystemManager.setCurrentSystem(null);
     }
 }

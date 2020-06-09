@@ -61,11 +61,18 @@ public class ListaSistemasAdapter extends RecyclerView.Adapter<ListaSistemasAdap
 
         Sistema s = lista.get(position);
 
-        Glide.with(context).load(ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, "").concat(
-                ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.Directory, "").concat(
-                        s.getImagePath()
-                ))).
-                into(holder.imageView);
+
+        if (s.getSigla().equals("PRE")) {
+            Glide.with(context).load(R.drawable.ic_preferences).
+                    into(holder.imageView);
+        }else {
+
+            Glide.with(context).load(ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, "").concat(
+                    ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.Directory, "").concat(
+                            s.getImagePath()
+                    ))).
+                    into(holder.imageView);
+        }
 
         holder.textView.setText(s.getNome());
     }

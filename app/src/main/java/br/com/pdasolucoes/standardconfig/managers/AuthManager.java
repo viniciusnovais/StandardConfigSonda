@@ -2,6 +2,7 @@ package br.com.pdasolucoes.standardconfig.managers;
 
 import br.com.pdasolucoes.standardconfig.model.Usuario;
 import br.com.pdasolucoes.standardconfig.network.CredentialAuthRequest;
+import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
 public class AuthManager {
 

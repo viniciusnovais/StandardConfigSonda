@@ -2,6 +2,8 @@ package br.com.pdasolucoes.standardconfig.managers;
 
 import android.content.DialogInterface;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
 import br.com.pdasolucoes.standardconfig.R;
@@ -36,15 +38,28 @@ public class SystemManager {
         SystemManager.currentSystem = currentSystem;
     }
 
-    private void popupSair() {
+    public static void popupSair() {
+
 
         NavigationHelper.showDialog(R.string.deseja_sair, -1, R.string.yes,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        AppCompatActivity appCompatActivity = NavigationHelper.getCurrentAppCompat();
+
+                        if (appCompatActivity == null)
+                            return;
+
                         AuthManager.logoutUser();
+                        appCompatActivity.finish();
                     }
-                }, -1, null);
+                }, R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
     }
 
     public static void loadSystems() {

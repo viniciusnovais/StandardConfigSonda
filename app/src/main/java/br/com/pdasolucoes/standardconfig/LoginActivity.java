@@ -1,5 +1,6 @@
 package br.com.pdasolucoes.standardconfig;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,8 +17,10 @@ import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText editUser;
-    EditText editPass;
+    @SuppressLint("StaticFieldLeak")
+    private  static EditText editUser;
+    @SuppressLint("StaticFieldLeak")
+    private  static EditText editPass;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    void cleanEdit() {
+    public static void cleanEdit() {
         editPass.setText("");
         editUser.setText("");
     }

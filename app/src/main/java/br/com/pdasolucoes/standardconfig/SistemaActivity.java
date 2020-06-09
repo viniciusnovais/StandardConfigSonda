@@ -1,31 +1,16 @@
 package br.com.pdasolucoes.standardconfig;
 
 import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-
 import android.os.Bundle;
-
-import android.preference.PreferenceManager;
-import android.util.Log;
-
-
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.pdasolucoes.standardconfig.adapter.ListaSistemasAdapter;
 import br.com.pdasolucoes.standardconfig.managers.FilialManager;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 import br.com.pdasolucoes.standardconfig.managers.SystemManager;
 import br.com.pdasolucoes.standardconfig.model.Sistema;
-import br.com.pdasolucoes.standardconfig.network.GetMobileVersionRequest;
 import br.com.pdasolucoes.standardconfig.network.SystemsRequest;
 import br.com.pdasolucoes.standardconfig.network.UpdateApkTaskRequest;
 import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
@@ -61,13 +46,10 @@ public class SistemaActivity extends PrincipalActivity implements SystemsRequest
         adapter.ItemClickListener(new ListaSistemasAdapter.ItemClick() {
             @Override
             public void onClick(Sistema sistema) {
-
                 if (sistema.getSigla().equals("PRE")) {
                     NavigationHelper.startActivity(SettingsActivity.class);
                     return;
                 }
-
-
                 SystemManager.setCurrentSystem(sistema);
 
                 if (NetworkManager.isPackageInstalled(sistema.getPackageName()))
@@ -77,5 +59,10 @@ public class SistemaActivity extends PrincipalActivity implements SystemsRequest
             }
         });
         FilialManager.loadFilial();
+    }
+
+    @Override
+    public void onBackPressed() {
+        SystemManager.popupSair();
     }
 }

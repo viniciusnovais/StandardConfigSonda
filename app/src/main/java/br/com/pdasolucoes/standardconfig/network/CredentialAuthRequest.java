@@ -8,6 +8,7 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.util.List;
 
+import br.com.pdasolucoes.standardconfig.LoginActivity;
 import br.com.pdasolucoes.standardconfig.PrincipalActivity;
 import br.com.pdasolucoes.standardconfig.R;
 import br.com.pdasolucoes.standardconfig.SistemaActivity;
@@ -78,6 +79,8 @@ public class CredentialAuthRequest extends SoapRequestBase {
         usuario.setCodigoPerfil(Integer.parseInt(response.getPropertyAsString("CodigoPerfil")));
 
         AuthManager.setCurrentUser(usuario);
+
+        LoginActivity.cleanEdit();
 
         NavigationHelper.startActivity(SistemaActivity.class);
 
