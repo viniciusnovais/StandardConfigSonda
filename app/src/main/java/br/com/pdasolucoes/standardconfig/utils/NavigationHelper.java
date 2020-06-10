@@ -305,8 +305,4 @@ public class NavigationHelper {
 
         fragmentManager.popBackStackImmediate();
     }
-
-    public static void cleanObjects() {
-        SystemManager.setCurrentSystem(null);
-    }
 }

@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationHelper.startActivity(ConfigurationActivity.class);
             }
         });
 
