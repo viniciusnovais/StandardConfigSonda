@@ -97,7 +97,7 @@ public class NetworkManager {
         }
     }
 
-    public static void tryUpdateOrOpenApk(Sistema sistema) {
+    public static boolean tryUpdateApk(Sistema sistema) {
         String[] versions = sistema.getVersions().split("[;]");
         List<Boolean> isUpdates = new ArrayList<>();
 
@@ -109,10 +109,10 @@ public class NetworkManager {
 
         if (!isUpdates.contains(true)) {
             NetworkManager.sendRequestApk(new UpdateApkTaskRequest(sistema.getNamePaste(), sistema.getNameApk()));
-            return;
+            return true;
         }
 
-        openApk(sistema.getPackageName());
+        return false;
 
 
     }
@@ -125,7 +125,7 @@ public class NetworkManager {
             return;
 
         Intent launchIntent = activity.getPackageManager().getLaunchIntentForPackage(packageName);
-        
+
 
         if (launchIntent != null) {
             activity.startActivity(launchIntent);

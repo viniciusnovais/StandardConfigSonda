@@ -53,7 +53,7 @@ public class SistemaActivity extends PrincipalActivity implements SystemsRequest
                 SystemManager.setCurrentSystem(sistema);
 
                 if (NetworkManager.isPackageInstalled(sistema.getPackageName()))
-                    NetworkManager.tryUpdateOrOpenApk(sistema);
+                    NetworkManager.tryUpdateApk(sistema);
                 else
                     NetworkManager.sendRequestApk(new UpdateApkTaskRequest(sistema.getNamePaste(), sistema.getNameApk()));
             }
