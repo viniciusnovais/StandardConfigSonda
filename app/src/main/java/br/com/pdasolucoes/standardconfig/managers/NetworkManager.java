@@ -117,7 +117,7 @@ public class NetworkManager {
 
     }
 
-    private static void openApk(String packageName) {
+    public static void openApk(String packageName) {
 
         AppCompatActivity activity = NavigationHelper.getCurrentAppCompat();
 

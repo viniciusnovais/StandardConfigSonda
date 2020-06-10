@@ -46,6 +46,7 @@ public abstract class PrincipalActivity extends AppCompatActivity {
 
         String profile = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, "-");
         String userName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserName, "-");
+        String packageName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.PackageName, "");
 
         tvPerfil.setText(getString(R.string.perfil_dois_pontos).concat(" ").concat(profile));
         tvUsuario.setText(getString(R.string.usuario_dois_pontos).concat(" ").concat(userName));
@@ -53,7 +54,7 @@ public abstract class PrincipalActivity extends AppCompatActivity {
 
         if (SystemManager.getCurrentSystem() != null)
             tvVersao.setText(getString(R.string.versao_description).concat(" ")
-                    .concat(NetworkManager.getVersionName(SystemManager.getCurrentSystem().getPackageName())));
+                    .concat(NetworkManager.getVersionName(packageName)));
         else
             tvVersao.setText(getString(R.string.versao));
 

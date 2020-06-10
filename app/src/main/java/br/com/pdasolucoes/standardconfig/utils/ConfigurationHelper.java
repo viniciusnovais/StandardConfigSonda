@@ -52,6 +52,7 @@ public class ConfigurationHelper {
     public enum Catalog {
         Configuration("CONFIGURATION"),
         Authentication("AUTHENTICATION"),
+        Application("APPLICATION"),
         Credentials("CREDENTIALS");
 
         private String name;
@@ -77,6 +78,7 @@ public class ConfigurationHelper {
         UserNameProfile(Catalog.Authentication, "USERNAMEPROFILE"),
         UserLogin(Catalog.Authentication, "USERLOGIN"),
         IsLoggedIn(Catalog.Authentication, "ISLOGGEDIN"),
+        PackageName(Catalog.Application, "PACKAGENAME"),
         IsConfigured(Catalog.Credentials, "ISCONFIGURED");
 
         private Catalog catalog;
