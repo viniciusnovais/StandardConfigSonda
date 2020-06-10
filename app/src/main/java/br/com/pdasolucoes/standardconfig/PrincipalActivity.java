@@ -42,6 +42,21 @@ public abstract class PrincipalActivity extends AppCompatActivity {
         TextView tvVersao = viewFooter.findViewById(R.id.tvVersion);
         activityContainer = view.findViewById(R.id.linearLayoutContent);
 
+
+        if (getIntent() != null) {
+            if (getIntent().getExtras() != null) {
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCode, getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName(), -1));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserName, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserName.getKeyName(), ""));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeFilial, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserCodeFilial.getKeyName(), ""));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameFilial, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserNameFilial.getKeyName(), ""));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeProfile, getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.UserCodeProfile.getKeyName(), -1));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserNameProfile.getKeyName(), ""));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserLogin.getKeyName(), ""));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn, getIntent().getExtras().getBoolean(ConfigurationHelper.ConfigurationEntry.IsLoggedIn.getKeyName(), false));
+            }
+        }
+
+
         String profile = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, "-");
         String userName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserName, "-");
         String packageName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.PackageName, "");
