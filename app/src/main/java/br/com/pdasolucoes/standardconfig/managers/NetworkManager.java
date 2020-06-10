@@ -97,18 +97,18 @@ public class NetworkManager {
         }
     }
 
-    public static boolean tryUpdateApk(Sistema sistema) {
-        String[] versions = sistema.getVersions().split("[;]");
+    public static boolean tryUpdateApk(String versionArray, String packageName, String namePaste,String nameApk) {
+        String[] versions = versionArray.split("[;]");
         List<Boolean> isUpdates = new ArrayList<>();
 
-        String currentNameVersion = getVersionName(sistema.getPackageName());
+        String currentNameVersion = getVersionName(packageName);
 
         for (String v : versions) {
             isUpdates.add(currentNameVersion.equals(v.trim()));
         }
 
         if (!isUpdates.contains(true)) {
-            NetworkManager.sendRequestApk(new UpdateApkTaskRequest(sistema.getNamePaste(), sistema.getNameApk()));
+            NetworkManager.sendRequestApk(new UpdateApkTaskRequest(namePaste, nameApk));
             return true;
         }
 
