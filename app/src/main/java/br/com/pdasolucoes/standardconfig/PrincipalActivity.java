@@ -70,13 +70,11 @@ public abstract class PrincipalActivity extends AppCompatActivity {
             if (imageView != null) {
                 imageView.setVisibility(View.GONE);
             }
-            //viewFooter.setVisibility(View.GONE);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             viewHeader.setVisibility(View.VISIBLE);
             if (imageView != null) {
                 imageView.setVisibility(View.VISIBLE);
             }
-            //viewFooter.setVisibility(View.VISIBLE);
         }
     }
 }
