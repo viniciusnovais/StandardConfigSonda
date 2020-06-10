@@ -11,15 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.pdasolucoes.standardconfig.model.Sistema;
-import br.com.pdasolucoes.standardconfig.network.JsonRequestBase;
 import br.com.pdasolucoes.standardconfig.network.OffLineRequest;
 import br.com.pdasolucoes.standardconfig.network.RequestUpdateApkTask;
 import br.com.pdasolucoes.standardconfig.network.SendRequestTask;
 import br.com.pdasolucoes.standardconfig.network.SoapRequestBase;
 import br.com.pdasolucoes.standardconfig.network.UpdateApkTaskRequest;
 import br.com.pdasolucoes.standardconfig.network.interfaces.IRequest;
-import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
 import br.com.pdasolucoes.standardconfig.utils.MyApplication;
 import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 

@@ -1,13 +1,8 @@
 package br.com.pdasolucoes.standardconfig.utils;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +12,6 @@ import androidx.fragment.app.FragmentManager;
 import java.lang.ref.WeakReference;
 
 import br.com.pdasolucoes.standardconfig.enums.FragmentTag;
-import br.com.pdasolucoes.standardconfig.managers.FilialManager;
-import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
-import br.com.pdasolucoes.standardconfig.managers.SystemManager;
 
 
 public class NavigationHelper {

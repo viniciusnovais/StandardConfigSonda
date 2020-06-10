@@ -13,12 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.multidex.MultiDex;
 
-import java.util.Objects;
-
-import br.com.pdasolucoes.standardconfig.ConfigurationActivity;
-import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
-import br.com.pdasolucoes.standardconfig.network.GetMobileVersionRequest;
-
 public class MyApplication extends Application implements DialogInterface.OnShowListener {
 
     private static MyApplication instance;

@@ -2,6 +2,7 @@ package br.com.pdasolucoes.standardconfig;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,10 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import br.com.pdasolucoes.standardconfig.managers.AuthManager;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
-import br.com.pdasolucoes.standardconfig.managers.SystemManager;
-import br.com.pdasolucoes.standardconfig.model.Usuario;
 import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
 
 public abstract class PrincipalActivity extends AppCompatActivity {
@@ -52,7 +50,7 @@ public abstract class PrincipalActivity extends AppCompatActivity {
         tvUsuario.setText(getString(R.string.usuario_dois_pontos).concat(" ").concat(userName));
         tvModulo.setText(getString(R.string.modulo_dois_pontos).concat(" ").concat(context.getTitle().toString()));
 
-        if (SystemManager.getCurrentSystem() != null)
+        if (!TextUtils.isEmpty(packageName))
             tvVersao.setText(getString(R.string.versao_description).concat(" ")
                     .concat(NetworkManager.getVersionName(packageName)));
         else
