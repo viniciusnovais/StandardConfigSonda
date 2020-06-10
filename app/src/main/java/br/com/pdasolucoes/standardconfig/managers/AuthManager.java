@@ -1,32 +1,23 @@
 package br.com.pdasolucoes.standardconfig.managers;
 
-import br.com.pdasolucoes.standardconfig.model.Usuario;
 import br.com.pdasolucoes.standardconfig.network.CredentialAuthRequest;
-import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
+import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
 
 public class AuthManager {
-
-    private static Usuario currentUser;
-
-    public static Usuario getCurrentUser() {
-        return currentUser;
-    }
-
-    public static void setCurrentUser(Usuario currentUser) {
-        AuthManager.currentUser = currentUser;
-    }
 
     public static void AuthUser(String user, String pass) {
         NetworkManager.sendRequest(new CredentialAuthRequest(user, pass));
     }
 
     public static void logoutUser() {
-        currentUser = null;
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCode, -1);
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserName, "");
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeFilial, -1);
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameFilial, "");
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeProfile, -1);
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, "");
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, "");
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn, false);
     }
-
-    public static boolean isLoggedIn() {
-        return currentUser != null;
-    }
-
 
 }

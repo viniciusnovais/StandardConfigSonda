@@ -13,6 +13,7 @@ import br.com.pdasolucoes.standardconfig.managers.AuthManager;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 import br.com.pdasolucoes.standardconfig.managers.SystemManager;
 import br.com.pdasolucoes.standardconfig.model.Usuario;
+import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
 
 public abstract class PrincipalActivity extends AppCompatActivity {
 
@@ -43,10 +44,11 @@ public abstract class PrincipalActivity extends AppCompatActivity {
         TextView tvVersao = viewFooter.findViewById(R.id.tvVersion);
         activityContainer = view.findViewById(R.id.linearLayoutContent);
 
-        Usuario u = AuthManager.getCurrentUser();
+        String profile = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, "-");
+        String userName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserName, "-");
 
-        tvPerfil.setText(getString(R.string.perfil_dois_pontos).concat(" ").concat(u != null ? u.getPerfil() : "-"));
-        tvUsuario.setText(getString(R.string.usuario_dois_pontos).concat(" ").concat(u != null ? u.getNome() : "-"));
+        tvPerfil.setText(getString(R.string.perfil_dois_pontos).concat(" ").concat(profile));
+        tvUsuario.setText(getString(R.string.usuario_dois_pontos).concat(" ").concat(userName));
         tvModulo.setText(getString(R.string.modulo_dois_pontos).concat(" ").concat(context.getTitle().toString()));
 
         if (SystemManager.getCurrentSystem() != null)

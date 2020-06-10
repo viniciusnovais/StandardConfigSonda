@@ -11,6 +11,7 @@ import br.com.pdasolucoes.standardconfig.model.Sistema;
 import br.com.pdasolucoes.standardconfig.network.enums.MessageConfiguration;
 import br.com.pdasolucoes.standardconfig.network.enums.RequestInfo;
 import br.com.pdasolucoes.standardconfig.network.enums.RequestType;
+import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
 
 public class SystemsRequest extends SoapRequestBase {
 
@@ -22,7 +23,7 @@ public class SystemsRequest extends SoapRequestBase {
     public SoapObject getBodySoap() {
 
         SoapObject soapObject = new SoapObject();
-        soapObject.addProperty("codigoPerfil_", AuthManager.getCurrentUser().getCodigoPerfil());
+        soapObject.addProperty("codigoPerfil_", ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserCodeProfile, -1));
         return soapObject;
     }
 

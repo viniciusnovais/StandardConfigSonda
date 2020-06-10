@@ -14,6 +14,7 @@ import java.util.List;
 import br.com.pdasolucoes.standardconfig.R;
 import br.com.pdasolucoes.standardconfig.model.Filial;
 import br.com.pdasolucoes.standardconfig.network.GetFilialRequest;
+import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
 import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 import br.com.pdasolucoes.standardconfig.utils.SpinnerDialog;
 import br.com.pdasolucoes.standardconfig.utils.interfaces.OnSpinerItemClick;
@@ -80,7 +81,8 @@ public class FilialManager {
     }
 
     public static void loadFilial() {
-        NetworkManager.sendRequest(new GetFilialRequest(AuthManager.getCurrentUser().getCodigoFilial()));
+        String codigoFilial = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserCodeFilial, "");
+        NetworkManager.sendRequest(new GetFilialRequest(codigoFilial));
     }
 
 }

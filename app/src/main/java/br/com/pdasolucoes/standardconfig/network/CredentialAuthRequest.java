@@ -21,6 +21,7 @@ import br.com.pdasolucoes.standardconfig.network.enums.MessageConfiguration;
 import br.com.pdasolucoes.standardconfig.network.enums.RequestInfo;
 import br.com.pdasolucoes.standardconfig.network.enums.RequestType;
 import br.com.pdasolucoes.standardconfig.network.enums.TypeService;
+import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
 import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
 public class CredentialAuthRequest extends SoapRequestBase {
@@ -70,15 +71,24 @@ public class CredentialAuthRequest extends SoapRequestBase {
         }
 
 
-        Usuario usuario = new Usuario();
-        usuario.setCodigo(Integer.parseInt(response.getPropertyAsString("Codigo")));
-        usuario.setCodigoFilial(response.getPropertyAsString("CodigoFilial"));
-        usuario.setFilial(response.getPropertyAsString("NomeFilial"));
-        usuario.setNome(response.getPropertyAsString("Nome"));
-        usuario.setPerfil(response.getPropertyAsString("DescricaoPefil"));
-        usuario.setCodigoPerfil(Integer.parseInt(response.getPropertyAsString("CodigoPerfil")));
+        //Usuario usuario = new Usuario();
+//        usuario.setCodigo(Integer.parseInt(response.getPropertyAsString("Codigo")));
+//        usuario.setCodigoFilial(response.getPropertyAsString("CodigoFilial"));
+//        usuario.setFilial(response.getPropertyAsString("NomeFilial"));
+//        usuario.setNome(response.getPropertyAsString("Nome"));
+//        usuario.setPerfil(response.getPropertyAsString("DescricaoPefil"));
+//        usuario.setCodigoPerfil(Integer.parseInt(response.getPropertyAsString("CodigoPerfil")));
 
-        AuthManager.setCurrentUser(usuario);
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCode,Integer.parseInt(response.getPropertyAsString("Codigo")));
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserName,response.getPropertyAsString("Nome"));
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeFilial,response.getPropertyAsString("CodigoFilial"));
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameFilial,response.getPropertyAsString("NomeFilial"));
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeProfile,Integer.parseInt(response.getPropertyAsString("CodigoPerfil")));
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile,response.getPropertyAsString("DescricaoPefil"));
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin,user);
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn,true);
+
+        //AuthManager.setCurrentUser(usuario);
 
         LoginActivity.cleanEdit();
 
