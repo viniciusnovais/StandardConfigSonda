@@ -90,8 +90,6 @@ public class CredentialAuthRequest extends SoapRequestBase {
 
         //AuthManager.setCurrentUser(usuario);
 
-        LoginActivity.cleanEdit();
-
         NavigationHelper.startActivity(SistemaActivity.class);
 
 
