@@ -19,6 +19,7 @@ import br.com.pdasolucoes.standardconfig.network.SendRequestTask;
 import br.com.pdasolucoes.standardconfig.network.SoapRequestBase;
 import br.com.pdasolucoes.standardconfig.network.UpdateApkTaskRequest;
 import br.com.pdasolucoes.standardconfig.network.interfaces.IRequest;
+import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
 import br.com.pdasolucoes.standardconfig.utils.MyApplication;
 import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
