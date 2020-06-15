@@ -53,6 +53,7 @@ public abstract class PrincipalActivity extends AppCompatActivity {
                 ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserNameProfile.getKeyName(), ""));
                 ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserLogin.getKeyName(), ""));
                 ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn, getIntent().getExtras().getBoolean(ConfigurationHelper.ConfigurationEntry.IsLoggedIn.getKeyName(), false));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.PackageName, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.PackageName.getKeyName(), ""));
             }
         }
 
