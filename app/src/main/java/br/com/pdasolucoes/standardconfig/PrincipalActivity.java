@@ -44,7 +44,7 @@ public abstract class PrincipalActivity extends AppCompatActivity {
 
 
         if (getIntent() != null) {
-            if (getIntent().getExtras() != null) {
+            if (getIntent().getExtras() != null && getIntent().hasExtra(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName())) {
                 ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCode, getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName(), -1));
                 ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserName, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserName.getKeyName(), ""));
                 ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeFilial, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserCodeFilial.getKeyName(), ""));
