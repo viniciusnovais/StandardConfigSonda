@@ -54,6 +54,10 @@ public abstract class PrincipalActivity extends AppCompatActivity {
                 ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserLogin.getKeyName(), ""));
                 ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn, getIntent().getExtras().getBoolean(ConfigurationHelper.ConfigurationEntry.IsLoggedIn.getKeyName(), false));
                 ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.PackageName, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.PackageName.getKeyName(), ""));
+
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.ServerAddress.getKeyName(), ""));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.Directory.getKeyName(), ""));
+                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Store, getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.Store.getKeyName(), -1));
             }
         }
 
