@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
+import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
 public abstract class PrincipalActivity extends AppCompatActivity {
 
@@ -74,7 +75,8 @@ public abstract class PrincipalActivity extends AppCompatActivity {
             tvVersao.setText(getString(R.string.versao_description).concat(" ")
                     .concat(NetworkManager.getVersionName(packageName)));
         else
-            tvVersao.setText(getString(R.string.versao));
+            tvVersao.setText(getString(R.string.versao_description).concat(" ")
+                    .concat(NetworkManager.getVersionName(context.getPackageName())));
 
 
     }
