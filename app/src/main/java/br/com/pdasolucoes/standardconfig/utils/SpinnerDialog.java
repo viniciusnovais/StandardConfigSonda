@@ -118,7 +118,7 @@ public class SpinnerDialog {
                 }
 
                 onSpinerItemClick.onLongClick(object);
-                return false;
+                return true;
             }
         });
 
