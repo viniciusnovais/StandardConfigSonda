@@ -28,6 +28,7 @@ public class SpinnerDialog {
     int pos;
     int style;
     View.OnClickListener closeClickListener;
+    ArrayAdapter<Object> adapter;
 
     public SpinnerDialog(Activity activity, ArrayList<?> items, String dialogTitle) {
         this.items = items;
@@ -51,6 +52,13 @@ public class SpinnerDialog {
 
     public void bindOnSpinerListener(OnSpinerItemClick onSpinerItemClick1) {
         this.onSpinerItemClick = onSpinerItemClick1;
+    }
+
+    public void updateListView(){
+        if (adapter!= null){
+            adapter.notifyDataSetChanged();
+
+        }
     }
 
     public void showSpinerDialog() {
@@ -82,7 +90,7 @@ public class SpinnerDialog {
         }
 
 
-        final ArrayAdapter<Object> adapter = new ArrayAdapter(this.context,
+        adapter = new ArrayAdapter(this.context,
                 R.layout.adapter_item_spinner_dialog, this.items);
         listView.setAdapter(adapter);
         adb.setView(v);
