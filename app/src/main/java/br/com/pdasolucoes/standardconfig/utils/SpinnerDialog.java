@@ -28,7 +28,8 @@ public class SpinnerDialog {
     int pos;
     int style;
     View.OnClickListener closeClickListener;
-    ArrayAdapter<Object> adapter;
+    private ArrayAdapter<Object> adapter;
+    private ListView listView;
 
     public SpinnerDialog(Activity activity, ArrayList<?> items, String dialogTitle) {
         this.items = items;
@@ -57,6 +58,8 @@ public class SpinnerDialog {
     public void updateListView(){
         if (adapter!= null){
             adapter.notifyDataSetChanged();
+            listView.invalidateViews();
+            listView.refreshDrawableState();
 
         }
     }
@@ -80,7 +83,7 @@ public class SpinnerDialog {
             title.setTextAppearance(context, android.R.style.TextAppearance_DeviceDefault_Medium);
         }
 
-        ListView listView = v.findViewById(in.galaxyofandroid.spinerdialog.R.id.list);
+        listView = v.findViewById(in.galaxyofandroid.spinerdialog.R.id.list);
         final EditText searchBox = v.findViewById(in.galaxyofandroid.spinerdialog.R.id.searchBox);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
