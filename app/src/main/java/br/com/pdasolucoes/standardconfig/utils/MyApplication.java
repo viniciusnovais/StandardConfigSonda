@@ -34,6 +34,7 @@ public class MyApplication extends Application implements DialogInterface.OnShow
             @Override
             public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
                 NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
+
             }
 
             @Override

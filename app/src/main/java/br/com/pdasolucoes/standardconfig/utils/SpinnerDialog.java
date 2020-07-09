@@ -105,6 +105,25 @@ public class SpinnerDialog {
                 SpinnerDialog.this.alertDialog.dismiss();
             }
         });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView t = view.findViewById(R.id.text1);
+                Object object = parent.getItemAtPosition(position);
+
+                for (int j = 0; j < SpinnerDialog.this.items.size(); ++j) {
+                    if (t.getText().toString().equalsIgnoreCase((items.get(j).toString()))) {
+                        SpinnerDialog.this.pos = j;
+                    }
+                }
+
+                onSpinerItemClick.onLongClick(object);
+                SpinnerDialog.this.alertDialog.dismiss();
+                return false;
+            }
+        });
+
+
         searchBox.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }

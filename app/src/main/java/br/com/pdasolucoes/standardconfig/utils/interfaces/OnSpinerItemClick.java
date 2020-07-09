@@ -7,4 +7,6 @@ package br.com.pdasolucoes.standardconfig.utils.interfaces;
 public interface OnSpinerItemClick {
 
     void onClick(Object o);
+
+    void onLongClick(Object o);
 }
