@@ -200,7 +200,7 @@ public class NavigationHelper {
             });
         }
 
-        if (negative != null && strNeutral != -1) {
+        if (negative != null && strNegative != -1) {
             builder.setNegativeButton(strNegative, negative);
         }
 

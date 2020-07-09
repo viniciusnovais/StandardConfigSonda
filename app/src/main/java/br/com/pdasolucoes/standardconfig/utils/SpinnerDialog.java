@@ -118,7 +118,6 @@ public class SpinnerDialog {
                 }
 
                 onSpinerItemClick.onLongClick(object);
-                SpinnerDialog.this.alertDialog.dismiss();
                 return false;
             }
         });
