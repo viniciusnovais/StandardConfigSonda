@@ -57,9 +57,11 @@ public class SpinnerDialog {
 
     public void updateListView(){
         if (adapter!= null){
+
+            adapter = new ArrayAdapter(this.context,
+                    R.layout.adapter_item_spinner_dialog, this.items);
+            listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            listView.invalidateViews();
-            listView.refreshDrawableState();
 
         }
     }
