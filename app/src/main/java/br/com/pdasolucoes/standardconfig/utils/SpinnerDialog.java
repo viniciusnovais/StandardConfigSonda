@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.pdasolucoes.standardconfig.R;
 import br.com.pdasolucoes.standardconfig.utils.interfaces.OnSpinerItemClick;
@@ -55,11 +56,11 @@ public class SpinnerDialog {
         this.onSpinerItemClick = onSpinerItemClick1;
     }
 
-    public void updateListView(){
+    public void updateListView(List<?> list){
         if (adapter!= null){
 
             adapter = new ArrayAdapter(this.context,
-                    R.layout.adapter_item_spinner_dialog, this.items);
+                    R.layout.adapter_item_spinner_dialog, list);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
