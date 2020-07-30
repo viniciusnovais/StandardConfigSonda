@@ -5,18 +5,23 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.pdasolucoes.standardconfig.R;
 import br.com.pdasolucoes.standardconfig.network.OffLineRequest;
 import br.com.pdasolucoes.standardconfig.network.RequestUpdateApkTask;
 import br.com.pdasolucoes.standardconfig.network.SendRequestTask;
 import br.com.pdasolucoes.standardconfig.network.SoapRequestBase;
 import br.com.pdasolucoes.standardconfig.network.UpdateApkTaskRequest;
 import br.com.pdasolucoes.standardconfig.network.interfaces.IRequest;
+import br.com.pdasolucoes.standardconfig.utils.ConfigurationHelper;
 import br.com.pdasolucoes.standardconfig.utils.MyApplication;
 import br.com.pdasolucoes.standardconfig.utils.NavigationHelper;
 
@@ -128,4 +133,50 @@ public class NetworkManager {
             activity.startActivity(launchIntent);
         }
     }
+
+    public static void updateInitialViews(View view) {
+        if (view != null) {
+
+            AppCompatActivity activity = NavigationHelper.getCurrentAppCompat();
+
+            if (activity== null)
+                return;
+
+            if (activity.getIntent() != null) {
+                if (activity.getIntent().getExtras() != null && activity.getIntent().hasExtra(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName())) {
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCode, activity.getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName(), -1));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserName, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserName.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeFilial, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserCodeFilial.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameFilial, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserNameFilial.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeProfile, activity.getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.UserCodeProfile.getKeyName(), -1));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserNameProfile.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserLogin.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn, activity.getIntent().getExtras().getBoolean(ConfigurationHelper.ConfigurationEntry.IsLoggedIn.getKeyName(), false));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.PackageName, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.PackageName.getKeyName(), ""));
+
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.ServerAddress.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.Directory.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Store, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.Store.getKeyName(), ""));
+                }
+            }
+
+
+            String profile = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, "-");
+            String userName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserName, "-");
+            String packageName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.PackageName, "");
+
+            ((TextView)view.findViewById(R.id.tvPerfil)).setText(activity.getString(R.string.perfil_dois_pontos).concat(" ").concat(profile));
+            ((TextView)view.findViewById(R.id.tvUsuario)).setText(activity.getString(R.string.usuario_dois_pontos).concat(" ").concat(userName));
+            ((TextView)view.findViewById(R.id.tvModulo)).setText(activity.getString(R.string.modulo_dois_pontos).concat(" ").concat(activity.getTitle().toString()));
+
+            if (!TextUtils.isEmpty(packageName))
+                ((TextView)view.findViewById(R.id.footer).findViewById(R.id.tvVersion)).setText(activity.getString(R.string.versao_description).concat(" ")
+                        .concat(NetworkManager.getVersionName(packageName)));
+            else
+                ((TextView)view.findViewById(R.id.footer).findViewById(R.id.tvVersion)).setText(activity.getString(R.string.versao_description).concat(" ")
+                        .concat(NetworkManager.getVersionName(activity.getPackageName())));
+        }
+
+    }
+
 }

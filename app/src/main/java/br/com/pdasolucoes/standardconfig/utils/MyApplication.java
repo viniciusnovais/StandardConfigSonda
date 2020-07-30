@@ -13,6 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.multidex.MultiDex;
 
+import br.com.pdasolucoes.standardconfig.R;
+import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
+
 public class MyApplication extends Application implements DialogInterface.OnShowListener {
 
     private static MyApplication instance;
@@ -44,12 +47,7 @@ public class MyApplication extends Application implements DialogInterface.OnShow
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
                 NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
-//                if (!ConfigurationHelper.loadPreference(
-//                        ConfigurationHelper.ConfigurationEntry.IsConfigured, false))
-//                    return;
-
-//                if (!correctVersion)
-//                    NetworkManager.sendRequest(new GetMobileVersionRequest());
+                NetworkManager.updateInitialViews(activity.findViewById(android.R.id.content).getRootView());
             }
 
             @Override

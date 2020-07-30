@@ -32,52 +32,10 @@ public abstract class PrincipalActivity extends AppCompatActivity {
 
     private void initViews(View view) {
 
-        LinearLayout linearLayout = view.findViewById(R.id.parent_activity);
-        Activity context = (Activity) linearLayout.getContext();
-
-        TextView tvModulo = view.findViewById(R.id.tvModulo);
-        TextView tvUsuario = view.findViewById(R.id.tvUsuario);
-        TextView tvPerfil = view.findViewById(R.id.tvPerfil);
         viewHeader = view.findViewById(R.id.header);
-        View viewFooter = view.findViewById(R.id.footer);
-        TextView tvVersao = viewFooter.findViewById(R.id.tvVersion);
         activityContainer = view.findViewById(R.id.linearLayoutContent);
 
-
-        if (getIntent() != null) {
-            if (getIntent().getExtras() != null && getIntent().hasExtra(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName())) {
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCode, getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName(), -1));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserName, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserName.getKeyName(), ""));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeFilial, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserCodeFilial.getKeyName(), ""));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameFilial, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserNameFilial.getKeyName(), ""));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeProfile, getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.UserCodeProfile.getKeyName(), -1));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserNameProfile.getKeyName(), ""));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserLogin.getKeyName(), ""));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn, getIntent().getExtras().getBoolean(ConfigurationHelper.ConfigurationEntry.IsLoggedIn.getKeyName(), false));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.PackageName, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.PackageName.getKeyName(), ""));
-
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.ServerAddress.getKeyName(), ""));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.Directory.getKeyName(), ""));
-                ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Store, getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.Store.getKeyName(), ""));
-            }
-        }
-
-
-        String profile = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, "-");
-        String userName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserName, "-");
-        String packageName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.PackageName, "");
-
-        tvPerfil.setText(getString(R.string.perfil_dois_pontos).concat(" ").concat(profile));
-        tvUsuario.setText(getString(R.string.usuario_dois_pontos).concat(" ").concat(userName));
-        tvModulo.setText(getString(R.string.modulo_dois_pontos).concat(" ").concat(context.getTitle().toString()));
-
-        if (!TextUtils.isEmpty(packageName))
-            tvVersao.setText(getString(R.string.versao_description).concat(" ")
-                    .concat(NetworkManager.getVersionName(packageName)));
-        else
-            tvVersao.setText(getString(R.string.versao_description).concat(" ")
-                    .concat(NetworkManager.getVersionName(context.getPackageName())));
-
+        NetworkManager.updateInitialViews(view);
 
     }
 
