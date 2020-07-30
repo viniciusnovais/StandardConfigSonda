@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.multidex.MultiDex;
 
 import br.com.pdasolucoes.standardconfig.R;
+import br.com.pdasolucoes.standardconfig.managers.AuthManager;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 
 public class MyApplication extends Application implements DialogInterface.OnShowListener {
@@ -38,6 +39,8 @@ public class MyApplication extends Application implements DialogInterface.OnShow
             public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
                 NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
 
+
+
             }
 
             @Override
@@ -51,9 +54,6 @@ public class MyApplication extends Application implements DialogInterface.OnShow
 
             @Override
             public void onActivityPaused(@NonNull Activity activity) {
-                activity.moveTaskToBack(true);
-                android.os.Process.killProcess(android.os.Process.myPid());
-                System.exit(1);
             }
 
             @Override
@@ -71,12 +71,14 @@ public class MyApplication extends Application implements DialogInterface.OnShow
                 clearReferences(activity);
             }
 
+
         });
     }
 
     private void clearReferences(Activity activity) {
         Activity currActivity = NavigationHelper.getCurrentAppCompat();
         if (currActivity != null && currActivity.equals(activity)) {
+            AuthManager.logoutUser();
             NavigationHelper.setCurrentAppCompat(null);
         }
     }
