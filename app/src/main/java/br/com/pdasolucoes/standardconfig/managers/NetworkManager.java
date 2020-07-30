@@ -2,10 +2,12 @@ package br.com.pdasolucoes.standardconfig.managers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -177,6 +179,29 @@ public class NetworkManager {
                         .concat(NetworkManager.getVersionName(activity.getPackageName())));
         }
 
+    }
+
+
+    public static void verifyLogin(){
+        try {
+            AppCompatActivity activity = NavigationHelper.getCurrentAppCompat();
+
+            if (activity == null)
+                return;
+
+            Context con = activity.createPackageContext("br.com.pdasolucoes.basesystem",0);
+
+            SharedPreferences preferencesBase = con.getSharedPreferences(ConfigurationHelper.Catalog.Authentication.getName(), Context.MODE_PRIVATE);
+            int codeUserChildApp = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserCode,-1);
+            int codeUserParentApp = preferencesBase.getInt(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName(),-1);
+
+            if (codeUserChildApp != codeUserParentApp)
+                activity.finish();
+
+
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("Not data shared", e.toString());
+        }
     }
 
 }
