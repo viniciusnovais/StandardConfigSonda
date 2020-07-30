@@ -47,12 +47,11 @@ public class MyApplication extends Application implements DialogInterface.OnShow
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
                 NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
-                NetworkManager.verifyLogin();
             }
 
             @Override
             public void onActivityPaused(@NonNull Activity activity) {
-                clearReferences(activity);
+                activity.finish();
             }
 
             @Override
