@@ -51,7 +51,9 @@ public class MyApplication extends Application implements DialogInterface.OnShow
 
             @Override
             public void onActivityPaused(@NonNull Activity activity) {
-                activity.finish();
+                activity.moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
             }
 
             @Override
