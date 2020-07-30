@@ -37,4 +37,6 @@
     <string name="filial">Filiais</string>
     <string name="pref_filial_key">pref_filial_key</string>
     <string name="pref_filial">Filial</string>
+    <string name="user_not_auth">Sessão expirada ou usuário não autenticado</string>
+    <string name="ok">OK</string>
 </resources>
