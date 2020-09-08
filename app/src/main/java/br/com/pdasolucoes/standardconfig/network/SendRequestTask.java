@@ -92,7 +92,10 @@ public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
             HttpTransportSE transportSE = new HttpTransportSE(baseUrl.concat("/").concat(this.request.getService()));
             transportSE.call(this.request.getNameSpace() + this.request.getAction(), envelope);
 
-            response = (SoapObject) envelope.getResponse();
+            if (this.request.getObjectName() != null)
+                response = (SoapObject) envelope.bodyIn;
+            else
+                response = (SoapObject) envelope.getResponse();
 
         } catch (IOException e) {
             MessageConfiguration.ExceptionError.setExceptionErrorMessage(e.getMessage());
