@@ -20,35 +20,38 @@ public class RequestInfo {
     private Class<?> objectClass;
     private MarshalType[] marshal;
     private String objectName;
+    private int timeout;
 
-    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId) {
-        this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP);
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, int timeout) {
+        this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP, timeout);
     }
 
-    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace) {
-        this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP);
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace, int timeout) {
+        this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP, timeout);
     }
 
-    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication, TypeService typeService) {
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication, TypeService typeService, int timeout) {
         this.service = service;
         this.action = action;
         this.descriptionResourceId = descriptionResourceId;
         this.requestType = requestType;
         this.requireAuthentication = requireAuthentication;
         this.typeService = typeService;
+        this.timeout = timeout;
     }
 
-    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace, TypeService typeService) {
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace, TypeService typeService, int timeout) {
         this.service = service;
         this.action = action;
         this.descriptionResourceId = descriptionResourceId;
         this.requestType = requestType;
         this.typeService = typeService;
         this.nameSpace = nameSpace;
+        this.timeout = timeout;
     }
 
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication,
-                       String entity, String objectName, Class<?> objectClass, String nameSpace, MarshalType[] marshalTypes, TypeService typeService) {
+                       String entity, String objectName, Class<?> objectClass, String nameSpace, MarshalType[] marshalTypes, TypeService typeService, int timeout) {
         this.service = service;
         this.action = action;
         this.descriptionResourceId = descriptionResourceId;
@@ -60,6 +63,7 @@ public class RequestInfo {
         this.objectClass = objectClass;
         this.marshal = marshalTypes;
         this.objectName = objectName;
+        this.timeout = timeout;
     }
 
     public String getService() {
@@ -114,5 +118,9 @@ public class RequestInfo {
 
     public String getObjectName() {
         return objectName;
+    }
+
+    public int getTimeout() {
+        return timeout;
     }
 }

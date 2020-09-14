@@ -89,7 +89,14 @@ public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
                 }
             }
 
-            HttpTransportSE transportSE = new HttpTransportSE(baseUrl.concat("/").concat(this.request.getService()));
+
+            HttpTransportSE transportSE;
+            if (this.request.getTimeOut() != 0)
+                transportSE = new HttpTransportSE(baseUrl.concat("/").concat(this.request.getService()), this.request.getTimeOut());
+            else
+                transportSE = new HttpTransportSE(baseUrl.concat("/").concat(this.request.getService()));
+
+
             transportSE.call(this.request.getNameSpace() + this.request.getAction(), envelope);
 
             if (this.request.getObjectName() != null)

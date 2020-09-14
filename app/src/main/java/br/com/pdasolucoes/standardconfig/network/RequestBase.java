@@ -217,4 +217,9 @@ public abstract class RequestBase implements IRequest {
     public SoapObject getRequestSoapObject() {
         return this.getRequestSoapObject();
     }
+
+    @Override
+    public int getTimeOut() {
+        return this.getRequestInfo().getTimeout();
+    }
 }
