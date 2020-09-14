@@ -1,14 +1,19 @@
 package br.com.pdasolucoes.standardconfig.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import br.com.pdasolucoes.standardconfig.R;
 
@@ -52,5 +57,27 @@ public class Helper {
             mediaPlayer.start();
         }
 
+    }
+
+    private static void closeKeyBoard(Context context) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) context.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+
+        View focusedView = ((Activity) context).getCurrentFocus();
+        if (focusedView != null) {
+            assert inputMethodManager != null;
+            inputMethodManager.hideSoftInputFromWindow(focusedView.getWindowToken(),
+                    0);
+        }
+    }
+
+    public static void openKeyBoard(Context context, EditText editText) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) context.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        assert inputMethodManager != null;
+        inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+        editText.requestFocus();
     }
 }
