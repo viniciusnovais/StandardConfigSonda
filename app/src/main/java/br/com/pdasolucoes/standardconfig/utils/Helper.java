@@ -80,4 +80,30 @@ public class Helper {
         inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
         editText.requestFocus();
     }
+
+    public static void focusEditText(Context context, final EditText editText) {
+        editText.requestFocus();
+        editText.setText("");
+        editText.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                editText.requestFocusFromTouch();
+            }
+        }, 200);
+        closeKeyBoard(context);
+
+    }
+
+    public static void focusEditTextWithKeyBoard(Context context, final EditText editText) {
+        editText.requestFocus();
+        editText.setText("");
+        editText.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                editText.requestFocusFromTouch();
+            }
+        }, 200);
+        openKeyBoard(context, editText);
+
+    }
 }
