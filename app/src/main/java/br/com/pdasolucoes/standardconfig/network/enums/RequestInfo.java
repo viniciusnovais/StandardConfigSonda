@@ -26,8 +26,16 @@ public class RequestInfo {
         this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP, timeout);
     }
 
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId) {
+        this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP, 0);
+    }
+
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace, int timeout) {
         this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP, timeout);
+    }
+
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace) {
+        this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP, 0);
     }
 
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication, TypeService typeService, int timeout) {

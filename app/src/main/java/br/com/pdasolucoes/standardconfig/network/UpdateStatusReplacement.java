@@ -48,7 +48,7 @@ public class UpdateStatusReplacement extends SoapRequestBase {
                 Reposicao.class,
                 "http://tempuri.org/",
                 new MarshalType[]{MarshalType.DATETIME},
-                TypeService.SOAP);
+                TypeService.SOAP,0);
     }
 
     @Override

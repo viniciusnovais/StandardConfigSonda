@@ -25,7 +25,8 @@ public class TestRequest extends SoapRequestBase {
                 null,
                 "http://tempuri.org/",
                 null,
-                TypeService.SOAP);
+                TypeService.SOAP
+        ,0);
     }
 
     @Override
