@@ -110,6 +110,9 @@ public class SendRequestTask extends AsyncTaskRunner<Void, Void, Object> {
         } catch (XmlPullParserException e) {
             MessageConfiguration.ExceptionError.setExceptionErrorMessage(e.getMessage());
             return MessageConfiguration.ExceptionError;
+        }catch (Exception e){
+            MessageConfiguration.ExceptionError.setExceptionErrorMessage(e.getMessage());
+            return MessageConfiguration.ExceptionError;
         }
 
         return response;
