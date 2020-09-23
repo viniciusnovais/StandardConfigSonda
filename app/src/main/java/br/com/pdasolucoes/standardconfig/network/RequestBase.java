@@ -222,4 +222,9 @@ public abstract class RequestBase implements IRequest {
     public int getTimeOut() {
         return this.getRequestInfo().getTimeout();
     }
+
+    @Override
+    public boolean isUniqueReturn() {
+        return false;
+    }
 }

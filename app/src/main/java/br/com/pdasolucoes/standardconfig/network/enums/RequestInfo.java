@@ -21,24 +21,29 @@ public class RequestInfo {
     private MarshalType[] marshal;
     private String objectName;
     private int timeout;
+    private boolean isUniqueReturn;
 
-    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, int timeout) {
-        this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP, timeout);
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, int timeout, boolean isUniqueReturn) {
+        this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP, timeout,isUniqueReturn);
     }
 
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId) {
-        this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP, 0);
+        this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP, 0, false);
     }
 
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace, int timeout) {
-        this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP, timeout);
+        this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP, timeout,false);
     }
 
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace) {
-        this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP, 0);
+        this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP, 0, false);
     }
 
-    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication, TypeService typeService, int timeout) {
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace, boolean isUniqueReturn) {
+        this(service, action, requestType, descriptionResourceId, nameSpace, TypeService.SOAP, 0, isUniqueReturn);
+    }
+
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication, TypeService typeService, int timeout,boolean isUniqueReturn) {
         this.service = service;
         this.action = action;
         this.descriptionResourceId = descriptionResourceId;
@@ -46,9 +51,10 @@ public class RequestInfo {
         this.requireAuthentication = requireAuthentication;
         this.typeService = typeService;
         this.timeout = timeout;
+        this.isUniqueReturn = isUniqueReturn;
     }
 
-    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace, TypeService typeService, int timeout) {
+    public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, String nameSpace, TypeService typeService, int timeout, boolean isUniqueReturn) {
         this.service = service;
         this.action = action;
         this.descriptionResourceId = descriptionResourceId;
@@ -56,6 +62,7 @@ public class RequestInfo {
         this.typeService = typeService;
         this.nameSpace = nameSpace;
         this.timeout = timeout;
+        this.isUniqueReturn = isUniqueReturn;
     }
 
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, boolean requireAuthentication,
@@ -130,5 +137,9 @@ public class RequestInfo {
 
     public int getTimeout() {
         return timeout;
+    }
+
+    public boolean isUniqueReturn() {
+        return isUniqueReturn;
     }
 }

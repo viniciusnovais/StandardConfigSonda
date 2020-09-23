@@ -33,6 +33,8 @@ public interface IRequest extends IAsyncTaskCallback<Void, Object> {
 
     int getTimeOut();
 
+    boolean isUniqueReturn();
+
     Class<?> getObject();
 
     SoapObject getSoapObjectToList();
