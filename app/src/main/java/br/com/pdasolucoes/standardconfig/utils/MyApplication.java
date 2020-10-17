@@ -50,17 +50,17 @@ public class MyApplication extends Application implements DialogInterface.OnShow
             @Override
             public void onActivityResumed(@NonNull final Activity activity) {
                 NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
-//                if (!ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn,false)
-//                        && !activity.getApplicationContext().getPackageName().equals("br.com.pdasolucoes.basesystem")){
-//                    NavigationHelper.showDialog(activity.getString(R.string.error_auth),
-//                            activity.getString(R.string.user_not_auth),
-//                            activity.getString(R.string.ok), new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            activity.finish();
-//                        }
-//                    });
-//                }
+                if (!ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn,false)
+                        && !activity.getApplicationContext().getPackageName().equals("br.com.pdasolucoes.basesystem")){
+                    NavigationHelper.showDialog(activity.getString(R.string.error_auth),
+                            activity.getString(R.string.user_not_auth),
+                            activity.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            activity.finish();
+                        }
+                    });
+                }
             }
 
             @Override
