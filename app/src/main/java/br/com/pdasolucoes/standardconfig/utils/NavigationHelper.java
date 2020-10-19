@@ -1,6 +1,8 @@
 package br.com.pdasolucoes.standardconfig.utils;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Toast;
@@ -284,6 +286,33 @@ public class NavigationHelper {
 
         builderSingle.show();
 
+    }
+
+
+    public static ProgressDialog showProgressDialogStatus(int title, int msg) {
+
+        AppCompatActivity appCompatActivity = NavigationHelper.getCurrentAppCompat();
+        if (appCompatActivity == null)
+            return null;
+
+        ProgressDialog progressDialog = new ProgressDialog(appCompatActivity);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+        if (title == -1)
+            progressDialog.setTitle("");
+        else
+            progressDialog.setTitle(appCompatActivity.getString(title));
+
+        if (msg == -1)
+            progressDialog.setMessage("");
+        else
+            progressDialog.setMessage(appCompatActivity.getString(msg));
+
+        progressDialog.setProgress(0);
+        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.setCancelable(false);
+
+        return progressDialog;
     }
 
     public static void showToastShort(int msg) {
