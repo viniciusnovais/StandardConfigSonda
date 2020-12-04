@@ -29,7 +29,7 @@ public class GetMobileVersionRequest extends SoapRequestBase {
 
     @Override
     protected RequestInfo getRequestInfo() {
-        return new RequestInfo("autenticacao.asmx",
+        return new RequestInfo("wsautenticacao.asmx",
                 "MobileConfiguration",
                 RequestType.Backgroud,
                 R.string.verify_update_version,

@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
-import br.com.pdasolucoes.standardconfig.network.GetMobileVersionRequest;
 import br.com.pdasolucoes.standardconfig.network.TestRequest;
 import br.com.pdasolucoes.standardconfig.network.UpdateStatusReplacement;
 import br.com.pdasolucoes.standardconfig.network.UpdateTokenNotificationRequest;

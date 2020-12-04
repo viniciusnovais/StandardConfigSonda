@@ -16,6 +16,7 @@ import androidx.multidex.MultiDex;
 import br.com.pdasolucoes.standardconfig.R;
 import br.com.pdasolucoes.standardconfig.managers.AuthManager;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
+import br.com.pdasolucoes.standardconfig.network.GetMobileVersionRequest;
 
 public class MyApplication extends Application implements DialogInterface.OnShowListener {
 
@@ -50,17 +51,10 @@ public class MyApplication extends Application implements DialogInterface.OnShow
             @Override
             public void onActivityResumed(@NonNull final Activity activity) {
                 NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
-//                if (!ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn,false)
-//                        && !activity.getApplicationContext().getPackageName().equals("br.com.pdasolucoes.basesystem")){
-//                    NavigationHelper.showDialog(activity.getString(R.string.error_auth),
-//                            activity.getString(R.string.user_not_auth),
-//                            activity.getString(R.string.ok), new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            activity.finish();
-//                        }
-//                    });
-//                }
+
+                if (!isCorrectVersion()){
+                    NetworkManager.sendRequest(new GetMobileVersionRequest());
+                }
             }
 
             @Override
@@ -112,12 +106,10 @@ public class MyApplication extends Application implements DialogInterface.OnShow
         }
     }
 
-    @Deprecated
     public static boolean isCorrectVersion() {
         return correctVersion;
     }
 
-    @Deprecated
     public static void setCorrectVersion(boolean correctVersion) {
         MyApplication.correctVersion = correctVersion;
     }
