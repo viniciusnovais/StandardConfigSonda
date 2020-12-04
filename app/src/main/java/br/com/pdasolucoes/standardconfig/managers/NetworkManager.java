@@ -148,7 +148,7 @@ public class NetworkManager {
                 if (activity.getIntent().getExtras() != null && activity.getIntent().hasExtra(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName())) {
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCode, activity.getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName(), -1));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserName, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserName.getKeyName(), ""));
-                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeFilial, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserCodeFilial.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeFilial, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserCodeFilial.getKeyName(), "-1"));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameFilial, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserNameFilial.getKeyName(), ""));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserCodeProfile, activity.getIntent().getExtras().getInt(ConfigurationHelper.ConfigurationEntry.UserCodeProfile.getKeyName(), -1));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserNameProfile, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserNameProfile.getKeyName(), ""));
