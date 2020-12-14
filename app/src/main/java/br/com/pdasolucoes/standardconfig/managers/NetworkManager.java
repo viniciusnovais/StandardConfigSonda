@@ -101,7 +101,7 @@ public class NetworkManager {
         }
     }
 
-    public static boolean tryUpdateApk(String versionArray, String packageName, String namePaste,String nameApk) {
+    public static boolean tryUpdateApk(String versionArray, String packageName, String namePaste, String nameApk) {
         String[] versions = versionArray.split("[;]");
         List<Boolean> isUpdates = new ArrayList<>();
 
@@ -141,7 +141,7 @@ public class NetworkManager {
 
             AppCompatActivity activity = NavigationHelper.getCurrentAppCompat();
 
-            if (activity== null)
+            if (activity == null)
                 return;
 
             if (activity.getIntent() != null) {
@@ -155,6 +155,7 @@ public class NetworkManager {
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserLogin.getKeyName(), ""));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn, activity.getIntent().getExtras().getBoolean(ConfigurationHelper.ConfigurationEntry.IsLoggedIn.getKeyName(), false));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.PackageName, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.PackageName.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.MacAddress, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.MacAddress.getKeyName(), ""));
 
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.ServerAddress.getKeyName(), ""));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.Directory.getKeyName(), ""));
@@ -167,33 +168,33 @@ public class NetworkManager {
             String userName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserName, "-");
             String packageName = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.PackageName, "");
 
-            ((TextView)view.findViewById(R.id.tvPerfil)).setText(activity.getString(R.string.perfil_dois_pontos).concat(" ").concat(profile));
-            ((TextView)view.findViewById(R.id.tvUsuario)).setText(activity.getString(R.string.usuario_dois_pontos).concat(" ").concat(userName));
-            ((TextView)view.findViewById(R.id.tvModulo)).setText(activity.getString(R.string.modulo_dois_pontos).concat(" ").concat(activity.getTitle().toString()));
+            ((TextView) view.findViewById(R.id.tvPerfil)).setText(activity.getString(R.string.perfil_dois_pontos).concat(" ").concat(profile));
+            ((TextView) view.findViewById(R.id.tvUsuario)).setText(activity.getString(R.string.usuario_dois_pontos).concat(" ").concat(userName));
+            ((TextView) view.findViewById(R.id.tvModulo)).setText(activity.getString(R.string.modulo_dois_pontos).concat(" ").concat(activity.getTitle().toString()));
 
             if (!TextUtils.isEmpty(packageName))
-                ((TextView)view.findViewById(R.id.footer).findViewById(R.id.tvVersion)).setText(activity.getString(R.string.versao_description).concat(" ")
+                ((TextView) view.findViewById(R.id.footer).findViewById(R.id.tvVersion)).setText(activity.getString(R.string.versao_description).concat(" ")
                         .concat(NetworkManager.getVersionName(packageName)));
             else
-                ((TextView)view.findViewById(R.id.footer).findViewById(R.id.tvVersion)).setText(activity.getString(R.string.versao_description).concat(" ")
+                ((TextView) view.findViewById(R.id.footer).findViewById(R.id.tvVersion)).setText(activity.getString(R.string.versao_description).concat(" ")
                         .concat(NetworkManager.getVersionName(activity.getPackageName())));
         }
 
     }
 
 
-    public static void verifyLogin(){
+    public static void verifyLogin() {
         try {
             AppCompatActivity activity = NavigationHelper.getCurrentAppCompat();
 
             if (activity == null)
                 return;
 
-            Context con = activity.createPackageContext("br.com.pdasolucoes.basesystem",0);
+            Context con = activity.createPackageContext("br.com.pdasolucoes.basesystem", 0);
 
             SharedPreferences preferencesBase = con.getSharedPreferences(ConfigurationHelper.Catalog.Authentication.getName(), Context.MODE_PRIVATE);
-            int codeUserChildApp = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserCode,-1);
-            int codeUserParentApp = preferencesBase.getInt(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName(),-1);
+            int codeUserChildApp = ConfigurationHelper.loadPreference(ConfigurationHelper.ConfigurationEntry.UserCode, -1);
+            int codeUserParentApp = preferencesBase.getInt(ConfigurationHelper.ConfigurationEntry.UserCode.getKeyName(), -1);
 
             if (codeUserChildApp != codeUserParentApp)
                 activity.finish();
