@@ -2,11 +2,15 @@ package br.com.pdasolucoes.standardconfig.utils;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +21,9 @@ import br.com.pdasolucoes.standardconfig.R;
 import br.com.pdasolucoes.standardconfig.managers.AuthManager;
 import br.com.pdasolucoes.standardconfig.managers.NetworkManager;
 import br.com.pdasolucoes.standardconfig.network.GetMobileVersionRequest;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
 public class MyApplication extends Application implements DialogInterface.OnShowListener {
 
@@ -52,6 +59,9 @@ public class MyApplication extends Application implements DialogInterface.OnShow
             public void onActivityResumed(@NonNull final Activity activity) {
                 NavigationHelper.setCurrentAppCompat((AppCompatActivity) activity);
 
+                IntentFilter filter = new IntentFilter(Service.ACTION);
+                instance.registerReceiver(receiver, filter);
+
                 if (!isCorrectVersion()){
                     NetworkManager.sendRequest(new GetMobileVersionRequest());
                 }
@@ -59,6 +69,7 @@ public class MyApplication extends Application implements DialogInterface.OnShow
 
             @Override
             public void onActivityPaused(@NonNull Activity activity) {
+                getInstance().unregisterReceiver(receiver);
             }
 
             @Override
@@ -117,4 +128,15 @@ public class MyApplication extends Application implements DialogInterface.OnShow
     public void onShow(DialogInterface dialog) {
         NavigationHelper.setCurrentDialog(dialog);
     }
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int resultCode = intent.getIntExtra("resultCode", RESULT_CANCELED);
+            if (resultCode == RESULT_OK) {
+                String resultValue = intent.getStringExtra("resultValue");
+                Toast.makeText(NavigationHelper.getCurrentAppCompat(), resultValue, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 }

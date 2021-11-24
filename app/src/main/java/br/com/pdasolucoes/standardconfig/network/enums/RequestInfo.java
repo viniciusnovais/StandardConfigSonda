@@ -22,6 +22,7 @@ public class RequestInfo {
     private String objectName;
     private int timeout;
     private boolean isUniqueReturn;
+    private MethodRequest methodRequest;
 
     public RequestInfo(String service, String action, RequestType requestType, int descriptionResourceId, int timeout, boolean isUniqueReturn) {
         this(service, action, requestType, descriptionResourceId, true, TypeService.SOAP, timeout,isUniqueReturn);
@@ -80,6 +81,23 @@ public class RequestInfo {
         this.objectName = objectName;
         this.timeout = timeout;
     }
+    public RequestInfo(String action, int descriptionResourceId, MethodRequest methodRequest, int timeout) {
+        this.action = action;
+        this.descriptionResourceId = descriptionResourceId;
+        this.timeout = timeout;
+        this.typeService = TypeService.REST;
+        this.methodRequest = methodRequest;
+    }
+
+    public RequestInfo(String action, RequestType requestType, int descriptionResourceId, MethodRequest methodRequest, int timeout) {
+        this.action = action;
+        this.descriptionResourceId = descriptionResourceId;
+        this.requestType = requestType;
+        this.timeout = timeout;
+        this.typeService = TypeService.REST;
+        this.methodRequest = methodRequest;
+    }
+
 
     public String getService() {
         return this.service;
@@ -141,5 +159,9 @@ public class RequestInfo {
 
     public boolean isUniqueReturn() {
         return isUniqueReturn;
+    }
+
+    public MethodRequest getMethodRequest() {
+        return methodRequest;
     }
 }

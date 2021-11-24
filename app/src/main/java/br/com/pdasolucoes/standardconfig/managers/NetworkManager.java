@@ -1,11 +1,14 @@
 package br.com.pdasolucoes.standardconfig.managers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -73,6 +76,7 @@ public class NetworkManager {
         requestUpdateApkTask.execute();
     }
 
+    @SuppressLint({"WrongConstant", "QueryPermissionsNeeded"})
     public static boolean isPackageInstalled(String packageName) {
 
         AppCompatActivity activity = NavigationHelper.getCurrentAppCompat();
@@ -81,6 +85,14 @@ public class NetworkManager {
             return false;
 
         try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                for (PackageInfo p :
+                        activity.getPackageManager().getInstalledPackages(PackageManager.MATCH_ALL)) {
+                    if (p.packageName.equals(packageName))
+                        return true;
+                }
+            }
+
             return activity.getPackageManager().getApplicationInfo(packageName, 0).enabled;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -155,7 +167,9 @@ public class NetworkManager {
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserLogin.getKeyName(), ""));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.IsLoggedIn, activity.getIntent().getExtras().getBoolean(ConfigurationHelper.ConfigurationEntry.IsLoggedIn.getKeyName(), false));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.PackageName, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.PackageName.getKeyName(), ""));
-                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.MacAddress, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.MacAddress.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Token, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.Token.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.RefreshToken, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.RefreshToken.getKeyName(), ""));
+                    ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserPassword, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.UserPassword.getKeyName(), ""));
 
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.ServerAddress.getKeyName(), ""));
                     ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, activity.getIntent().getExtras().getString(ConfigurationHelper.ConfigurationEntry.Directory.getKeyName(), ""));
