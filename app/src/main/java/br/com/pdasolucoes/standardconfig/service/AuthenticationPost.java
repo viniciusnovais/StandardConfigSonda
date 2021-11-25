@@ -31,7 +31,7 @@ public class AuthenticationPost extends JsonRequestBase {
         this.passwordBinary = passwordBinary;
 
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, "http://10.0.2.2");
-        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, ":40001");
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, ":40001/");
 
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, login);
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserPassword, password);
@@ -43,7 +43,7 @@ public class AuthenticationPost extends JsonRequestBase {
         this.password = password;
 
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.ServerAddress, "http://10.0.2.2");
-        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, ":40001");
+        ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.Directory, ":40001/");
 
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserLogin, login);
         ConfigurationHelper.savePreference(ConfigurationHelper.ConfigurationEntry.UserPassword, password);
