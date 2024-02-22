@@ -2,13 +2,12 @@ apply plugin: 'com.android.library'
 //apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion 34
     defaultConfig {
         useLibrary 'org.apache.http.legacy'
         //applicationId "br.com.pdasolucoes.standardconfig"
         minSdkVersion 15
-        targetSdkVersion 29
+        targetSdkVersion 34
         //versionCode 1
         //versionName "1.0.23"
         multiDexEnabled true
