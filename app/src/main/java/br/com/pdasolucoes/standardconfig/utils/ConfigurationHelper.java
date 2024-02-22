@@ -83,6 +83,7 @@ public class ConfigurationHelper {
         Token(Catalog.Authentication, "TOKEN"),
         IsLoggedIn(Catalog.Authentication, "ISLOGGEDIN"),
         PackageName(Catalog.Application, "PACKAGENAME"),
+        Modulo(Catalog.Application, "MODULO"),
         MacAddress(Catalog.Printer, "MACADDRESS"),
         IsConfigured(Catalog.Credentials, "ISCONFIGURED");
 
